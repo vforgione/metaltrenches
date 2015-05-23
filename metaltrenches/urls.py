@@ -3,7 +3,7 @@ from django.contrib import admin
 
 urlpatterns = [
     # admin
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'^motherfuckingdjadminbitch/', include(admin.site.urls)),  # security by obscurity
 
     # home
     url(r"^$", "metaltrenches.apps.reviews.views.home", name="home"),

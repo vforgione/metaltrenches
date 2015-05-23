@@ -13,7 +13,7 @@ CACHES = {
     }
 }
 
-CACHE_DURATION = 60 * 15  # 15 minutes
+CACHE_DURATION = 0
 
 
 # databases

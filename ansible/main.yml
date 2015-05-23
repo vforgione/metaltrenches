@@ -65,6 +65,9 @@
 
     - apt: name=npm state=present
 
+    - name: symlink nodejs
+      shell: "ln -s /usr/bin/nodejs /usr/bin/node"
+
     # files
     - authorized_key: user=www-data key="{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
 

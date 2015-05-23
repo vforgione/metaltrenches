@@ -7,7 +7,7 @@ from django.views.decorators.cache import cache_page
 from .models import Review
 
 
-# @cache_page(settings.CACHE_DURATION)
+@cache_page(settings.CACHE_DURATION)
 @render_to("reviews/home.html")
 def home(request):
     reviews = Review.published_objects.all().order_by("-published")[:13]
@@ -16,7 +16,7 @@ def home(request):
     }
 
 
-# @cache_page(settings.CACHE_DURATION)
+@cache_page(settings.CACHE_DURATION)
 @render_to("reviews/review-detail.html")
 def review_detail(request, slug, pk):
     review = get_object_or_404(Review, pk=pk)
@@ -25,7 +25,7 @@ def review_detail(request, slug, pk):
     }
 
 
-# @cache_page(settings.CACHE_DURATION)
+@cache_page(settings.CACHE_DURATION)
 @render_to("reviews/review-list.html")
 def review_list(request):
     reviews = Review.published_objects.all().order_by("-published")
@@ -42,7 +42,7 @@ def review_list(request):
     }
 
 
-# @cache_page(settings.CACHE_DURATION)
+@cache_page(settings.CACHE_DURATION)
 @render_to("reviews/band-list.html")
 def band_list(request):
     reviews = Review.published_objects.all()
@@ -52,7 +52,7 @@ def band_list(request):
     }
 
 
-# @cache_page(settings.CACHE_DURATION)
+@cache_page(settings.CACHE_DURATION)
 @render_to("reviews/album-list.html")
 def album_list(request):
     reviews = Review.published_objects.all()
