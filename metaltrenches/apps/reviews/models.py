@@ -41,10 +41,10 @@ class Review(models.Model):
     published = models.DateTimeField(null=True, default=None, blank=True)
 
     # managers
+    objects = models.Manager()
     published_objects = PublishedManager()
     scheduled_objects = ScheduledManager()
     draft_objects = DraftManager()
-    objects = models.Manager()
 
     def save(self, *args, **kwargs):
         self.slug = make_slug(self.title)
