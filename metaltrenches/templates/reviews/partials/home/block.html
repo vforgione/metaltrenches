@@ -1,0 +1,12 @@
+<a href="{{ review.get_absolute_url }}" class="dont-decorate">
+  <div class="col-lg-6 home-block">
+    <header>
+      <h3>{{ review.title }}</h3>
+      <h4>{{ review.subtitle }}</h4>
+    </header>
+
+    {{ review.body|safe }}
+
+    <div class="fade-to-white"></div>
+  </div>
+</a>

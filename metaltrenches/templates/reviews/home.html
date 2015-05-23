@@ -1,0 +1,41 @@
+{% extends "base/contained.html" %}
+
+{% load pipeline reviews %}
+
+
+{% block title %}Home{{ block.super }}{% endblock %}
+
+
+{% block content %}
+
+  <!-- call out -->
+  {% with review=reviews.0 %}
+    {% include "reviews/partials/home/callout.html" %}
+  {% endwith %}
+  <!-- /call out -->
+
+  <!-- list of reviews -->
+  <div class="row">
+  {% for review in reviews|slice:"1:" %}
+    {% include "reviews/partials/home/block.html" %}
+
+  {% if forloop.counter|divisibleby:"4" %}
+  </div>
+  {% ad_space %}
+  <div class="row">
+
+  {% elif forloop.counter|divisibleby:"2" %}
+  </div>
+  <div class="row">
+  {% endif %}
+
+  {% endfor %}
+  </div>
+  <!-- /list of reviews -->
+
+{% endblock %}
+
+
+{% block scripts %}
+{% javascript 'homepage' %}
+{% endblock %}

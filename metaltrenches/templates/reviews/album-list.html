@@ -1,0 +1,24 @@
+{% extends "base/contained.html" %}
+
+{% load reviews %}
+
+
+{% block title %}Albums{{ block.super }}{% endblock %}
+
+
+{% block content %}
+  {% for album in albums %}
+  <div class="row">
+    <header>
+      <h4>{{ album.title }} <i>by {{ album.band.name }}</i></h4>
+    </header>
+    <ul class="list-unstyled">
+      {% for review in album.reviews.all %}
+        <li><a href="{{ review.get_absolute_url }}">{{ review.title }}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endfor %}
+
+  {% ad_space %}
+{% endblock %}

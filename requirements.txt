@@ -1,0 +1,8 @@
+Django>=1.8,<1.9
+Fabric
+django-annoying
+django-pipeline
+model-mommy
+Pillow
+psycopg2
+pylibmc

@@ -1,0 +1,9 @@
+<a href="{{ review.get_absolute_url }}" class="dont-decorate">
+  <div class="row">
+    {% if review.album %}
+    {% include "reviews/partials/home/fragments/callout-with-image.html" %}
+    {% else %}
+    {% include "reviews/partials/home/fragments/callout-only-text.html" %}
+    {% endif %}
+  </div>
+</a>

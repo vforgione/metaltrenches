@@ -1,0 +1,11 @@
+<a href="{{ review.get_absolute_url }}" class="dont-decorate">
+  <div class="col-lg-6">
+    <div class="row">
+      {% if review.album %}
+      {% include "reviews/partials/review-list/image.html" %}
+      {% else %}
+      {% include "reviews/partials/review-list/text.html" %}
+      {% endif %}
+    </div>
+  </div>
+</a>

@@ -1,0 +1,45 @@
+<script>
+  $(function () {
+    $('#ratings-chart').highcharts({
+      chart: {
+        type: 'bar'
+      },
+      title: {
+        text: 'Average Score: {{ avg_score }}'
+      },
+      xAxis: {
+        categories: {{ categories }},
+        title: {
+          text: null
+        }
+      },
+      yAxis: {
+        min: 0,
+        title: {
+          text: 'Score',
+          align: 'high'
+        },
+        labels: {
+          overflow: 'justify'
+        }
+      },
+      tooltip: {
+        valueSuffix: ' stars'
+      },
+      plotOptions: {
+        bar: {
+          dataLabels: {
+            enabled: false
+          }
+        }
+      },
+      credits: {
+        enabled: false
+      },
+      series: [{
+        name: '{{ album_title }}',
+        data: {{ scores }}
+      }]
+    });
+  });
+</script>

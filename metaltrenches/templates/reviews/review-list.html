@@ -1,0 +1,38 @@
+{% extends "base/contained.html" %}
+
+{% load reviews %}
+
+
+{% block title %}Reviews{{ block.super }}{% endblock %}
+
+
+{% block content %}
+
+  <!-- list of reviews -->
+  <div class="row" style="margin-bottom:20px;">
+  {% for review in reviews %}
+    {% include "reviews/partials/review-list/block.html" %}
+
+  {% if forloop.counter|divisibleby:"4" %}
+  </div>
+  {% ad_space %}
+  <div class="row">
+
+  {% elif forloop.counter|divisibleby:"2" %}
+  </div>
+  <div class="row">
+  {% endif %}
+
+  {% endfor %}
+  </div>
+  <!-- /list of reviews -->
+
+  <!-- spacer -->
+  <div class="row"><p>&nbsp;</p></div>
+  <!-- /spacer -->
+
+  <!-- pagination -->
+  {% include "reviews/partials/pagination/paginator.html" with collection=reviews %}
+  <!-- /pagination -->
+
+{% endblock %}
