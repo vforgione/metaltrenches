@@ -73,3 +73,4 @@ assets/*
 !assets/.gitkeep
 media/*
 !media/.gitkeep
+dumps/

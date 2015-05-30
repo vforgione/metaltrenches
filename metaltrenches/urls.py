@@ -1,5 +1,6 @@
 from django.conf.urls import include, url
 from django.contrib import admin
+from django.views.generic import TemplateView
 
 urlpatterns = [
     # admin
@@ -20,4 +21,7 @@ urlpatterns = [
     
     # search
     url(r"^search/", include("haystack.urls")),
+
+    # static pages
+    url(r"^contact/?$", TemplateView.as_view(template_name='base/contact.html'), name='contact'),
 ]
