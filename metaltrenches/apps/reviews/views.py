@@ -46,7 +46,11 @@ def review_list(request):
 @render_to("reviews/band-list.html")
 def band_list(request):
     reviews = Review.published_objects.all()
-    bands = sorted([r.album.band for r in reviews], key=lambda b: b.name)
+    hits = set()
+    bands = sorted(
+        [r.album.band for r in reviews if r.album.band not in hits and not hits.add(r.album.band)],
+        key=lambda b: b.name
+    )
     return {
         "bands": bands,
     }
@@ -56,7 +60,11 @@ def band_list(request):
 @render_to("reviews/album-list.html")
 def album_list(request):
     reviews = Review.published_objects.all()
-    albums = sorted([r.album for r in reviews], key=lambda a: a.title)
+    hits = set()
+    albums = sorted(
+        [r.album for r in reviews if r.album not in hits and not hits.add(r.album)],
+        key=lambda a: a.title
+    )
     return {
         "albums": albums,
     }
