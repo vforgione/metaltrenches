@@ -1,9 +1,28 @@
-{% extends "base/contained.html" %}
+{% extends "base/jumbo.html" %}
 
 {% load pipeline reviews %}
 
 
 {% block title %}Home{{ block.super }}{% endblock %}
+
+
+{% block jumbotron %}
+  <div class="col-lg-4">
+    <h1>Welcome to Metal Trenches</h1>
+    <h2>A FlightOfIcarus Production</h2>
+  </div>
+  <div class="col-lg-8">
+    <p>
+      This site was developed as a means to help lesser-known bands and musicians gain increased exposure.
+      I do enjoy listening to and writing about music, but nothing is more satisfying than hearing that a
+      posted publication or link resulted in a new fan for a deserving artist.
+    </p>
+    <p>
+      Happy head-banging.<br>
+      FlightOfIcarus
+    </p>
+  </div>
+{% endblock %}
 
 
 {% block content %}
