@@ -44,7 +44,7 @@ PIPELINE_JS = {
     },
     "bootstrap": {
         "source_filenames": (
-            "jquery/dist/jquery.min.js",
+            "jquery/dist/jquery.js",
             "bootstrap/dist/js/bootstrap.js",
         ),
         "output_filename": "js/bootstrap.js"
