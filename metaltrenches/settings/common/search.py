@@ -5,3 +5,5 @@ HAYSTACK_CONNECTIONS = {
         "INDEX_NAME": "metaltrenches",
     },
 }
+
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
