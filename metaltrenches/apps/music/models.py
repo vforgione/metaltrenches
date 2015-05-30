@@ -50,3 +50,6 @@ class Album(models.Model):
 
     def __str__(self):
         return "{band}: {title}".format(band=self.band, title=self.title)
+
+    def get_genres_string(self):
+        return ", ".join([g.name for g in self.genres.all()])
