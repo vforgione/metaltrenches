@@ -48,3 +48,7 @@ div.review-list-block-text-background {
 div.nav-padder {
   height: 60px;
 }
+
+img.review-list-image {
+  padding: 10px;
+}
