@@ -58,3 +58,11 @@ class Review(models.Model):
     @models.permalink
     def get_absolute_url(self):
         return "review-detail", (self.slug, self.pk)
+
+    @property
+    def band(self):
+        return self.album.band
+
+    @property
+    def genres(self):
+        return self.album.genres.all()

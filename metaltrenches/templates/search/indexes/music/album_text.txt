@@ -1,0 +1,5 @@
+{{ object.title }}
+{{ object.band.name }}
+{% for genre in object.genres.all %}
+{{ genre.name }}
+{% endfor %}

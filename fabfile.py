@@ -37,7 +37,7 @@ def migrate():
 def reindex():
     cmd = "cd {app_path} && " \
           "source {app_venv_source} && " \
-          "python manage.py reindex --settings {app_settings}"
+          "python manage.py rebuild_index --settings {app_settings}"
     args = dict(app_path=app_path, app_venv_source=app_venv_source, app_settings=app_settings)
     run(cmd.format(**args))
 

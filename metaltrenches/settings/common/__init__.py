@@ -6,6 +6,7 @@ from .dirs import *
 from .media import *
 from .middleware import *
 from .project import *
+from .search import *
 from .site import *
 from .static import *
 from .templates import *

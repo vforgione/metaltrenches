@@ -17,4 +17,7 @@ urlpatterns = [
 
     # albums
     url(r"^albums$", "metaltrenches.apps.reviews.views.album_list", name="album-list"),
+    
+    # search
+    url(r"^search/", include("haystack.urls")),
 ]
