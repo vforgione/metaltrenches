@@ -1,12 +1,17 @@
 <a href="{{ review.get_absolute_url }}" class="dont-decorate">
   <div class="col-lg-6 home-block">
-    <header>
-      <h3>{{ review.title }}</h3>
-      <h4>{{ review.subtitle }}</h4>
-    </header>
-
-    {{ review.body|safe }}
-
-    <div class="fade-to-white"></div>
+    <div class="row">
+      <div class="col-sm-6">
+        <img src="{{ MEDIA_URL }}{{ review.album.cover_art }}" class="img-responsive">
+      </div>
+      <div class="col-sm-6">
+        <header>
+          <h3>{{ review.title }}</h3>
+          <h4>{{ review.subtitle }}</h4>
+        </header>
+        {{ review.body|safe }}
+      </div>
+      <div class="fade-to-white"></div>
+    </div>
   </div>
 </a>
