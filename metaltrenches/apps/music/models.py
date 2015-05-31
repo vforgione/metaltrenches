@@ -30,6 +30,10 @@ class Band(models.Model):
     def __str__(self):
         return self.name
 
+    @models.permalink
+    def get_absolute_url(self):
+        return "band-detail", (self.slug, )
+
 
 class Album(models.Model):
     band = models.ForeignKey(Band, related_name="albums")
@@ -50,6 +54,10 @@ class Album(models.Model):
 
     def __str__(self):
         return "{band}: {title}".format(band=self.band, title=self.title)
+
+    @models.permalink
+    def get_absolute_url(self):
+        return "album-detail", (self.slug, )
 
     def get_genres_string(self):
         return ", ".join([g.name for g in self.genres.all()])

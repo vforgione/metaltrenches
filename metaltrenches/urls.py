@@ -10,17 +10,19 @@ urlpatterns = [
     url(r"^$", "metaltrenches.apps.reviews.views.home", name="home"),
 
     # reviews
-    url(r"^reviews$", "metaltrenches.apps.reviews.views.review_list", name="review-list"),
-    url(r"^reviews/(?P<slug>[\w\-]+)-(?P<pk>\d+)$", "metaltrenches.apps.reviews.views.review_detail", name="review-detail"),
+    url(r"^reviews/?$", "metaltrenches.apps.reviews.views.review_list", name="review-list"),
+    url(r"^reviews/(?P<slug>[\w\-]+)-(?P<pk>\d+)/?$", "metaltrenches.apps.reviews.views.review_detail", name="review-detail"),
 
     # bands
-    url(r"^bands$", "metaltrenches.apps.reviews.views.band_list", name="band-list"),
+    url(r"^bands/?$", "metaltrenches.apps.music.views.band_list", name="band-list"),
+    url(r"^bands/(?P<slug>[\w\-]+)/?$", "metaltrenches.apps.music.views.band_detail", name="band-detail"),
 
     # albums
-    url(r"^albums$", "metaltrenches.apps.reviews.views.album_list", name="album-list"),
+    url(r"^albums/?$", "metaltrenches.apps.music.views.album_list", name="album-list"),
+    url(r"^albums/(?P<slug>[\w\-]+)/?$", "metaltrenches.apps.music.views.album_detail", name="album-detail"),
     
     # search
-    url(r"^search/", include("haystack.urls")),
+    url(r"^search/?$", include("haystack.urls")),
 
     # static pages
     url(r"^contact/?$", TemplateView.as_view(template_name='base/contact.html'), name='contact'),

@@ -1,0 +1,40 @@
+{% extends "base/contained.html" %}
+
+{% load reviews %}
+
+
+{% block title %}Albums{{ block.super }}{% endblock %}
+
+
+{% block content %}
+
+  <!-- list of albums -->
+  {% for album in albums %}
+  <div class="row">
+    <header>
+      <h4>
+        <a href="{{ album.get_absolute_url }}"><em>{{ album.title }}</em></a>
+        by
+        <a href="{{ album.band.get_absolute_url }}">{{ album.band }}</a>
+      </h4>
+    </header>
+    <ul class="list-unstyled">
+      {% for review in album.reviews.all %}
+      <li><a href="{{ review.get_absolute_url }}">{{ review.title }}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endfor %}
+  <!-- /list of albums -->
+
+  <!-- spacer -->
+  <div class="row"><p>&nbsp;</p></div>
+  <!-- /spacer -->
+
+  <!-- pagination -->
+  {% include "reviews/partials/pagination/paginator.html" with collection=albums %}
+  <!-- /pagination -->
+
+  {% ad_space %}
+
+{% endblock %}

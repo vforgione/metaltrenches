@@ -30,7 +30,7 @@ def review_detail(request, slug, pk):
 def review_list(request):
     reviews = Review.published_objects.all().order_by("-published")
     paginator = Paginator(reviews, 20)
-    page = request.GET.get('page')
+    page = request.GET.get("page")
     try:
         reviews = paginator.page(page)
     except PageNotAnInteger:
@@ -39,32 +39,4 @@ def review_list(request):
         reviews = paginator.page(paginator.num_pages)
     return {
         "reviews": reviews,
-    }
-
-
-@cache_page(settings.CACHE_DURATION)
-@render_to("reviews/band-list.html")
-def band_list(request):
-    reviews = Review.published_objects.all()
-    hits = set()
-    bands = sorted(
-        [r.album.band for r in reviews if r.album.band not in hits and not hits.add(r.album.band)],
-        key=lambda b: b.name
-    )
-    return {
-        "bands": bands,
-    }
-
-
-@cache_page(settings.CACHE_DURATION)
-@render_to("reviews/album-list.html")
-def album_list(request):
-    reviews = Review.published_objects.all()
-    hits = set()
-    albums = sorted(
-        [r.album for r in reviews if r.album not in hits and not hits.add(r.album)],
-        key=lambda a: a.title
-    )
-    return {
-        "albums": albums,
     }

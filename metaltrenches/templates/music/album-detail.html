@@ -1,0 +1,45 @@
+{% extends "base/jumbo.html" %}
+
+{% load reviews %}
+
+
+{% block title %}{{ band.name }}{% endblock %}
+
+
+{% block jumbotron %}
+  <div class="row">
+    <div class="col-lg-8">
+      <img src="{{ MEDIA_URL }}{{ album.cover_art }}" class="img-responsive">
+    </div>
+    <div class="col-lg-4">
+      <header>
+        <h1>{{ album.title }} by <a href="{{ album.band.get_absolute_url }}">{{ album.band }}</a></h1>
+      </header>
+    </div>
+  </div>
+{% endblock %}
+
+
+{% block content %}
+
+  <div class="row">
+    <div class="col-lg-12">
+      <header>
+        <h1>Reviews</h1>
+      </header>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-12">
+      <ul class="list-unstyled">
+        {% for review in album.reviews.all %}
+        <li><h3><a href="{{ review.get_absolute_url }}">{{ review }}</a></h3></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+
+  {% ad_space %}
+
+{% endblock %}

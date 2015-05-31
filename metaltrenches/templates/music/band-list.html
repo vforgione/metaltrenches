@@ -7,20 +7,32 @@
 
 
 {% block content %}
+
+  <!-- list of bands -->
   {% for band in bands %}
   <div class="row">
     <header>
-      <h4>{{ band.name }}</h4>
+      <h4><a href="{{ band.get_absolute_url }}">{{ band }}</a></h4>
     </header>
     <ul class="list-unstyled">
       {% for album in band.albums.all %}
         {% for review in album.reviews.all %}
-          <li><a href="{{ review.get_absolute_url }}">{{ review.title }}</a></li>
+          <li>{{ album.title }}: <a href="{{ review.get_absolute_url }}">{{ review.title }}</a></li>
         {% endfor %}
       {% endfor %}
     </ul>
   </div>
   {% endfor %}
+  <!-- /list of bands -->
+
+  <!-- spacer -->
+  <div class="row"><p>&nbsp;</p></div>
+  <!-- /spacer -->
+
+  <!-- pagination -->
+  {% include "reviews/partials/pagination/paginator.html" with collection=bands %}
+  <!-- /pagination -->
 
   {% ad_space %}
+
 {% endblock %}
