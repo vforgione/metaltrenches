@@ -17,10 +17,23 @@
         {% if result.object.body %}
         <p>
           <a href="{{ result.object.get_absolute_url }}">
-            <h4>{{ result.object }}</h4>
+            <h4>[review]&nbsp;{{ result.object }}</h4>
           </a>
           {% highlight result.object.body with query %}
         </p>
+        {% elif result.object.title %}
+          <p>
+            <a href="{{ result.object.get_absolute_url }}">
+              <h4>[album]&nbsp;{{ result.object }}</h4>
+            </a>
+            {% highlight result.object.get_genres_string with query %}
+          </p>
+        {% else %}
+          <p>
+            <a href="{{ result.object.get_absolute_url }}">
+              <h4>[band]&nbsp;{{ result.object }}</h4>
+            </a>
+          </p>
         {% endif %}
       {% empty %}
       <p>No results found.</p>
