@@ -7,6 +7,10 @@ body {
   margin-bottom: 60px;
 }
 
+body, p {
+  font-size: 17px; !important;
+}
+
 a.dont-decorate {
   color: #000000;
   text-decoration: none;
