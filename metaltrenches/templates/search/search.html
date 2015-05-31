@@ -1,5 +1,7 @@
 {% extends "base/contained.html" %}
 
+{% load highlight %}
+
 
 {% block title %}Search{% endblock %}
 
@@ -12,11 +14,12 @@
 
     <div class="row">
       {% for result in page.object_list %}
-        {% if result.object.subtitle %}
+        {% if result.object.body %}
         <p>
           <a href="{{ result.object.get_absolute_url }}">
             <h4>{{ result.object }}</h4>
           </a>
+          {% highlight result.object.body with query %}
         </p>
         {% endif %}
       {% empty %}
