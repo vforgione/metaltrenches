@@ -6,6 +6,9 @@
 {% block title %}{{ band.name }}{% endblock %}
 
 
+{% block keywords %}{{ band.name }}{% for album in band.albums.all %}, {{ album.title }}{% endfor %}{% endblock %}
+
+
 {% block jumbotron %}
   <div class="row">
     <div class="col-lg-7">

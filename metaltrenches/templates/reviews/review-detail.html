@@ -6,6 +6,23 @@
 {% block title %}{{ review.title }}{% if review.subtitle %}: {{ review.subtitle }}{% endif %}{{ block.super }}{% endblock %}
 
 
+{% block keywords %}{{ review.album.title }}, {{ review.album.band.name }}{% endblock %}
+
+
+{% block extra_meta %}
+  <meta property="og:title" content=”{{ review }}”>
+  <meta property="og:type" content=”article”>
+  <meta property="og:image" content="http://metaltrenches.com{{ MEDIA_URL }}{{ review.album.cover_art }}">
+  <meta property="og:url" content="http://metaltrenches.com{{ review.get_absolute_url }}">
+  <meta property="og:description" content="{{ review.body|striptags|slice:":152" }}...">
+  <meta property="twitter:card" content="summary">
+  <meta property="twitter:url" content="http://metaltrenches.com{{ review.get_absolute_url }}">
+  <meta property="twitter:title" content=”{{ review }}”>
+  <meta property="twitter:description" content="{{ review.body|striptags|slice:":152" }}...">
+  <meta property="twitter:image" content="http://metaltrenches.com{{ MEDIA_URL }}{{ review.album.cover_art }}">
+{% endblock %}
+
+
 {% block content %}
   <div class="row">
     {% if review.album %}
