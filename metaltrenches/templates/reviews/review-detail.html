@@ -17,17 +17,28 @@
 
 {% block content %}
   <div class="row">
-    {% if review.album %}
-    {% include "reviews/partials/review-detail/image.html" %}
-    {% else %}
-    {% include "reviews/partials/review-detail/text-only.html" %}
-    {% endif %}
-    <div style="position:relative;bottom:0;">
-      <h4>
-        Share This Review:
-        <span class='st_facebook_large' displayText='Facebook'></span>
-        <span class='st_twitter_large' displayText='Tweet'></span>
-      </h4>
+    <div class="col-lg-6">
+      <img src="{{ MEDIA_URL }}{{ review.album.cover_art }}" class="img-responsive">
+    </div>
+
+    <div class="col-lg-6">
+      <header>
+        <h1>{{ review.title }}</h1>
+        {% if review.subtitle %}<h2>{{ review.subtitle }}</h2>{% endif %}
+        <h5>{{ review.published|date }}</h5>
+        <h3>
+          <a href="{{ review.album.get_absolute_url }}"><em>{{ review.album.title }}</em></a>
+          &nbsp;by <a href="{{ review.album.band.get_absolute_url }}">{{ review.album.band }}</a></h3>
+      </header>
+      <p>&nbsp;</p>
+      <div id="ratings-chart" style="height:300px;"></div>
+      <div style="position:relative;bottom:0;">
+        <h4>
+          Share This Review:
+          <span class='st_facebook_large' displayText='Facebook'></span>
+          <span class='st_twitter_large' displayText='Tweet'></span>
+        </h4>
+      </div>
     </div>
   </div>
 
