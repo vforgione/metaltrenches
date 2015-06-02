@@ -7,6 +7,13 @@ register = template.Library()
 
 
 @register.simple_tag
+def ga():
+    if settings.DEBUG is False:
+        return render_to_string("ads/ga.html", {})
+    return ""
+
+
+@register.simple_tag
 def ad_space():
     if settings.DEBUG is False:
         return render_to_string("ads/advertisement.html", {})
