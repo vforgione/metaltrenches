@@ -1,5 +1,7 @@
 {% extends "base/jumbo.html" %}
 
+{% load bands %}
+
 
 {% block title %}{{ band.name }}{% endblock %}
 
@@ -15,11 +17,7 @@
       </header>
     </div>
     <div class="col-lg-5">
-      {% if band.website|length or band.facebook|length or band.twitter|length or band.bandcamp|length %}<h3>Links</h3>{% endif %}
-      {% if band.website|length %}<a href="{{ band.website }}" target="_blank"><h4>{{ band.name }}'s Website</h4></a><br>{% endif %}
-      {% if band.facebook|length %}<a href="{{ band.facebook }}" target="_blank"><h4>{{ band.name }}'s Facebook Page</h4></a><br>{% endif %}
-      {% if band.twitter|length %}<a href="{{ band.twitter }}" target="_blank"><h4>{{ band.name }}'s Twitter</h4></a><br>{% endif %}
-      {% if band.bandcamp|length %}<a href="{{ band.bandcamp }}" target="_blank"><h4>{{ band.name }}'s Bandcamp Site</h4></a><br>{% endif %}
+      {% band_links band %}
     </div>
   </div>
 {% endblock %}
@@ -42,8 +40,9 @@
     </div>
     <div class="col-lg-8">
       <ul class="list-unstyled">
+        <li><h4>See Details about <a href="{{ album.get_absolute_url }}"><em>{{ album.title }}</em></a></h4></li>
         {% for review in album.reviews.all %}
-        <li><h3><a href="{{ review.get_absolute_url }}">{{ review }}</a></h3></li>
+        <li><h4>Read the Review <a href="{{ review.get_absolute_url }}"><em>{{ review }}</em></a></h4></li>
         {% endfor %}
       </ul>
     </div>

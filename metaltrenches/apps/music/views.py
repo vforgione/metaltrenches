@@ -11,7 +11,7 @@ from ..reviews.models import Review
 @cache_page(settings.CACHE_DURATION)
 @render_to("music/band-detail.html")
 def band_detail(request, slug):
-    band = get_object_or_404(Band, slug=slug)
+    band = get_object_or_404(Band.objects.prefetch_related(), slug=slug)
     return {
         "band": band,
     }
@@ -20,7 +20,7 @@ def band_detail(request, slug):
 @cache_page(settings.CACHE_DURATION)
 @render_to("music/band-list.html")
 def band_list(request):
-    reviews = Review.published_objects.all()
+    reviews = Review.published_objects.all().prefetch_related()
     hits = set()
     bands = sorted(
         [r.album.band for r in reviews if r.album.band not in hits and not hits.add(r.album.band)],
@@ -42,7 +42,7 @@ def band_list(request):
 @cache_page(settings.CACHE_DURATION)
 @render_to("music/album-detail.html")
 def album_detail(request, slug):
-    album = get_object_or_404(Album, slug=slug)
+    album = get_object_or_404(Album.objects.prefetch_related(), slug=slug)
     return {
         "album": album,
     }
@@ -51,7 +51,7 @@ def album_detail(request, slug):
 @cache_page(settings.CACHE_DURATION)
 @render_to("music/album-list.html")
 def album_list(request):
-    reviews = Review.published_objects.all()
+    reviews = Review.published_objects.all().prefetch_related()
     hits = set()
     albums = sorted(
         [r.album for r in reviews if r.album not in hits and not hits.add(r.album)],

@@ -10,7 +10,7 @@ from .models import Review
 @cache_page(settings.CACHE_DURATION)
 @render_to("reviews/home.html")
 def home(request):
-    reviews = Review.published_objects.all().order_by("-published")[:13]
+    reviews = Review.published_objects.all().order_by("-published").prefetch_related()[:13]
     return {
         "reviews": reviews,
     }
@@ -19,7 +19,7 @@ def home(request):
 @cache_page(settings.CACHE_DURATION)
 @render_to("reviews/review-detail.html")
 def review_detail(request, slug, pk):
-    review = get_object_or_404(Review, pk=pk)
+    review = get_object_or_404(Review.published_objects.prefetch_related(), pk=pk)
     return {
         "review": review,
     }
@@ -28,7 +28,7 @@ def review_detail(request, slug, pk):
 @cache_page(settings.CACHE_DURATION)
 @render_to("reviews/review-list.html")
 def review_list(request):
-    reviews = Review.published_objects.all().order_by("-published")
+    reviews = Review.published_objects.all().order_by("-published").prefetch_related()
     paginator = Paginator(reviews, 20)
     page = request.GET.get("page")
     try:

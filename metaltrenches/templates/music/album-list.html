@@ -11,23 +11,25 @@
   <div class="row">
     <header>
       <h4>
-        <a href="{{ album.get_absolute_url }}"><em>{{ album.title }}</em></a>
-        by
-        <a href="{{ album.band.get_absolute_url }}">{{ album.band }}</a>
+        {{ album.title }}
+        <span class="small">
+          &nbsp;by&nbsp;
+          <a href="{{ album.band.get_absolute_url }}">{{ album.band }}</a>
+        </span>
       </h4>
     </header>
+
     <ul class="list-unstyled">
+      <li>See Details for <a href="{{ album.get_absolute_url }}"><em>{{ album.title }}</em></a></li>
       {% for review in album.reviews.all %}
-      <li><a href="{{ review.get_absolute_url }}">{{ review.title }}</a></li>
+      <li>Read the Review <a href="{{ review.get_absolute_url }}"><em>{{ review }}</em></a></li>
       {% endfor %}
     </ul>
   </div>
+
+  <hr>
   {% endfor %}
   <!-- /list of albums -->
-
-  <!-- spacer -->
-  <div class="row"><p>&nbsp;</p></div>
-  <!-- /spacer -->
 
   <!-- pagination -->
   {% include "reviews/partials/pagination/paginator.html" with collection=albums %}

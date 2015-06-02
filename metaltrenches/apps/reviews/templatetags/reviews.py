@@ -12,7 +12,7 @@ def hc_script(album):
         ratings = [rating for rating in album.ratings.all()]
         sum_scores = sum([r.score for r in ratings])
         len_ratings = len(ratings)
-        avg_score = round(sum_scores / len_ratings)
+        avg_score = round(sum_scores / len_ratings, 1)
         categories = "["
         scores = "["
         for rating in ratings:

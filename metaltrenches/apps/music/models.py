@@ -61,3 +61,9 @@ class Album(models.Model):
 
     def get_genres_string(self):
         return ", ".join([g.name for g in self.genres.all()])
+
+    def get_avg_rating(self):
+        ratings = [r for r in self.ratings.all()]
+        num_ratings = len(ratings)
+        total_score = sum(r.score for r in ratings)
+        return round(total_score / num_ratings, 1)

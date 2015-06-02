@@ -6,7 +6,9 @@
   <header>
     <h1>{{ review.title }}</h1>
     <h2>{{ review.subtitle }}</h2>
-    <h3><em>{{ review.album.title }}</em> by <a href="{{ review.album.band.get_absolute_url }}">{{ review.album.band }}</a></h3>
+    <h3>
+      <a href="{{ review.album.get_absolute_url }}"><em>{{ review.album.title }}</em></a>
+      &nbsp;by <a href="{{ review.album.band.get_absolute_url }}">{{ review.album.band }}</a></h3>
   </header>
 
   <p>&nbsp;</p>
