@@ -1,9 +1,24 @@
 <a href="{{ review.get_absolute_url }}" class="dont-decorate">
   <div class="row">
-    {% if review.album %}
-    {% include "reviews/partials/home/fragments/callout-with-image.html" %}
-    {% else %}
-    {% include "reviews/partials/home/fragments/callout-only-text.html" %}
-    {% endif %}
+    <!-- image -->
+    <div class="col-lg-6" id="callout-image">
+      <img src="{{ MEDIA_URL }}{{ review.album.cover_art }}" class="img-responsive">
+    </div>
+    <!-- /image -->
+
+    <div class="col-lg-6 overlay" id="callout-body">
+      <!-- title -->
+      <header>
+        <h1>{{ review.title }}</h1>
+        <h2>{{ review.subtitle }}</h2>
+      </header>
+      <!-- /title -->
+      <!-- body -->
+      {{ review.body|safe }}
+      <!-- /body -->
+
+      <div class="fade-to-white"></div>
+
+    </div>
   </div>
 </a>
