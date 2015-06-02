@@ -1,4 +1,4 @@
-{% extends "base/contained.html" %}
+{% extends "base/jumbo.html" %}
 
 {% load pipeline reviews social %}
 
@@ -15,7 +15,7 @@
 {% endblock %}
 
 
-{% block content %}
+{% block jumbotron %}
   <div class="row">
     <div class="col-lg-6">
       <img src="{{ MEDIA_URL }}{{ review.album.cover_art }}" class="img-responsive">
@@ -30,8 +30,11 @@
           <a href="{{ review.album.get_absolute_url }}"><em>{{ review.album.title }}</em></a>
           &nbsp;by <a href="{{ review.album.band.get_absolute_url }}">{{ review.album.band }}</a></h3>
       </header>
+
       <p>&nbsp;</p>
+
       <div id="ratings-chart" style="height:300px;"></div>
+
       <div style="position:relative;bottom:0;">
         <h4>
           Share This Review:
@@ -41,9 +44,10 @@
       </div>
     </div>
   </div>
+{% endblock %}
 
-  <div class="row"><p></p></div>
 
+{% block content %}
   <div class="row">
     {{ review.body|safe }}
   </div>

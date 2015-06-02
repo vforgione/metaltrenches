@@ -37,7 +37,7 @@
         enabled: false
       },
       series: [{
-        name: '{{ album_title }}',
+        name: '{{ album_title|safe }}',
         data: {{ scores }}
       }]
     });
