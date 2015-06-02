@@ -1,6 +1,6 @@
 {% extends "base/contained.html" %}
 
-{% load pipeline reviews ads social %}
+{% load pipeline reviews social %}
 
 
 {% block title %}{{ review.title }}{% if review.subtitle %}: {{ review.subtitle }}{% endif %}{{ block.super }}{% endblock %}
@@ -29,8 +29,6 @@
   <div class="row">
     {{ review.body|safe }}
   </div>
-
-  {% ad_space %}
 {% endblock %}
 
 

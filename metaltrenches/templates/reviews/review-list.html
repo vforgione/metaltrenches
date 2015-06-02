@@ -1,7 +1,5 @@
 {% extends "base/contained.html" %}
 
-{% load ads %}
-
 
 {% block title %}Reviews{{ block.super }}{% endblock %}
 
@@ -13,12 +11,7 @@
   {% for review in reviews %}
     {% include "reviews/partials/review-list/block.html" %}
 
-  {% if forloop.counter|divisibleby:"4" %}
-  </div>
-  {% ad_space %}
-  <div class="row">
-
-  {% elif forloop.counter|divisibleby:"2" %}
+  {% if forloop.counter|divisibleby:"2" %}
   </div>
   <div class="row">
   {% endif %}

@@ -1,4 +1,4 @@
-{% load pipeline %}
+{% load pipeline ads %}
 
 <!DOCTYPE html>
 <html>
@@ -22,15 +22,17 @@
   <body>
     {% include "base/partials/nav.html" %}
 
+    <div class="container">
+      {% ad_space %}
+    </div>
+
     {% block __content %}{% endblock %}
 
-    <footer class="footer">
-      <div class="container">
-        <p class="center-block text-center">
-          All Review Content is &copy; 2015 MetalTrenches.com
-        </p>
-      </div>
-    </footer>
+    <div class="container">
+      {% ad_space %}
+    </div>
+
+    {% include "base/partials/footer.html" %}
 
     {% javascript 'bootstrap' %}
     {% block scripts %}{% endblock %}

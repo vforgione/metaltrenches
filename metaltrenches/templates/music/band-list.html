@@ -1,7 +1,5 @@
 {% extends "base/contained.html" %}
 
-{% load ads %}
-
 
 {% block title %}Bands{{ block.super }}{% endblock %}
 
@@ -32,7 +30,5 @@
   <!-- pagination -->
   {% include "reviews/partials/pagination/paginator.html" with collection=bands %}
   <!-- /pagination -->
-
-  {% ad_space %}
 
 {% endblock %}
