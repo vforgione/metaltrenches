@@ -12,7 +12,8 @@
   <div class="row">
     <div class="col-lg-4">
       <header>
-        <h1>{{ review }}</h1>
+        <h1>{{ review.title }}</h1>
+        {% if review.subtitle %}<h2>{{ review.subtitle }}</h2>{% endif %}
         <h4>{{ review.album }}</h4>
         <h5>{{ review.published|date }}</h5>
       </header>
