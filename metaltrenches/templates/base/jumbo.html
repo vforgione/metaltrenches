@@ -1,9 +1,13 @@
 {% extends "base/__base.html" %}
 
-{% load reviews %}
+{% load ads %}
 
 
 {% block __content %}
+<div class="container">
+  {% ad_space %}
+</div>
+
 <div class="jumbotron">
   <div class="container">
     {% block jumbotron %}{% endblock %}
@@ -11,7 +15,6 @@
 </div>
 
 <div class="container">
-  {% ad_space %}
   {% block content %}{% endblock %}
 </div>
 {% endblock %}

@@ -15,8 +15,10 @@ THIRD_PARTY_APPS = (
 )
 
 PROJECT_APPS = (
+    "metaltrenches.apps.ads",
     "metaltrenches.apps.music",
     "metaltrenches.apps.reviews",
+    "metaltrenches.apps.social",
 )
 
 # this is what is actually used to configure project

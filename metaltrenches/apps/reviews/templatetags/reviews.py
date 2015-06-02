@@ -1,5 +1,4 @@
 from django import template
-from django.conf import settings
 from django.template.loader import render_to_string
 from django.utils.text import mark_safe
 
@@ -31,14 +30,3 @@ def hc_script(album):
 
     except Exception as e:
         return ""
-
-
-@register.simple_tag
-def ad_space():
-    if settings.DEBUG is False:
-        return ""
-    return """
-        <div style="background:#363636;height:80px;margin-bottom:40px;margin-top:40px;color:#fff;width:100%">
-          Ad Space
-        </div>
-    """
