@@ -6,8 +6,10 @@
       </div>
       <div class="col-lg-6">
         <header>
-          <h3>{{ review.title }}</h3>
-          <h4>{{ review.subtitle }}</h4>
+          <h2>{{ review.title }}</h2>
+          <h3>{{ review.subtitle }}</h3>
+          <h4>{{ review.album }}</h4>
+          <h5>{{ review.published|date }}</h5>
         </header>
         {{ review.body|safe }}
       </div>

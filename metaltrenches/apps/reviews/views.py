@@ -29,7 +29,7 @@ def review_detail(request, slug, pk):
 @render_to("reviews/review-list.html")
 def review_list(request):
     reviews = Review.published_objects.all().order_by("-published").prefetch_related()
-    paginator = Paginator(reviews, 20)
+    paginator = Paginator(reviews, 30)
     page = request.GET.get("page")
     try:
         reviews = paginator.page(page)

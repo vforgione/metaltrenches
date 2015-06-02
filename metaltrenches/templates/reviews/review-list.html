@@ -7,22 +7,23 @@
 {% block content %}
 
   <!-- list of reviews -->
-  <div class="row" style="margin-bottom:20px;">
+
   {% for review in reviews %}
-    {% include "reviews/partials/review-list/block.html" %}
-
-  {% if forloop.counter|divisibleby:"2" %}
-  </div>
   <div class="row">
-  {% endif %}
-
-  {% endfor %}
+    <div class="col-lg-4">
+      <header>
+        <h1>{{ review }}</h1>
+        <h4>{{ review.album }}</h4>
+        <h5>{{ review.published|date }}</h5>
+      </header>
+    </div>
+    <div class="col-lg-8">
+      {{ review.body|striptags|slice:":450" }} ... <a href="{{ review.get_absolute_url }}">Keep Reading</a>
+    </div>
   </div>
+  <hr>
+  {% endfor %}
   <!-- /list of reviews -->
-
-  <!-- spacer -->
-  <div class="row"><p>&nbsp;</p></div>
-  <!-- /spacer -->
 
   <!-- pagination -->
   {% include "reviews/partials/pagination/paginator.html" with collection=reviews %}
