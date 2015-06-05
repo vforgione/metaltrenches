@@ -37,11 +37,10 @@
 
       <div id="ratings-chart" style="height:300px;"></div>
 
-      <div style="position:relative;bottom:0;">
-        <h4>
-          Share This Review:
-          <div class="fb-share-button" data-href="http://metaltrenches.com/{{ review.get_absolute_url }}" data-layout="icon"></div>
-        </h4>
+      <div>
+        <p>&nbsp;</p>
+        <a href="https://twitter.com/share" class="twitter-share-button" data-text="{{ review }}" data-via="MetalTrenches" data-count="none">Tweet</a>&nbsp;
+        <div class="fb-share-button" data-href="http://metaltrenches.com/{{ review.get_absolute_url }}" data-layout="button"></div>
       </div>
     </div>
   </div>
@@ -61,5 +60,6 @@
   {% javascript 'highcharts' %}
   {% hc_script review.album %}
   <script>(function(d, s, id){var js, fjs = d.getElementsByTagName(s)[0];if (d.getElementById(id)) return;js = d.createElement(s); js.id = id;js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3&appId=950325951684443";fjs.parentNode.insertBefore(js, fjs);}(document, 'script', 'facebook-jssdk'));</script>
+  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 {% endif %}
 {% endblock %}
