@@ -20,8 +20,11 @@ def open_graph(review):
 
 @register.simple_tag
 def twitter_card(review):
+    title = review.title
+    if review.subtitle:
+        title += ": " + review.subtitle
     context = {
-        "title": str(review),
+        "title": title,
         "image": "{}{}".format(settings.MEDIA_URL, review.album.cover_art),
         "url": review.get_absolute_url(),
         "description": striptags(review.body[:151]) + " ..."
