@@ -12,6 +12,7 @@
 {% block extra_meta %}
   <meta property="og:title" content="{{ review.title }}">
   {% open_graph review %}
+  <meta name="twitter:title" content="{{ review.title }}">
   {% twitter_card review %}
 {% endblock %}
 
