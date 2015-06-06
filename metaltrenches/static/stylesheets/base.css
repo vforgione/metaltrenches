@@ -102,3 +102,33 @@ img.review-list-image {
   bottom: 0;
     width: 100%;
 }
+
+.share-twitter {
+  color: #55acee;
+  padding: 3px;
+}
+
+.share-twitter:hover {
+  background-color: #55acee;
+  color: #ffffff;
+}
+
+.share-facebook {
+  color: #3b5998;
+  padding: 3px;
+}
+
+.share-facebook:hover {
+  background-color: #3b5998;
+  color: #ffffff;
+}
+
+.share-reddit {
+  color: #336699;
+  padding: 3px;
+}
+
+.share-reddit:hover {
+  background-color: #336699;
+  color: #ff8b60;
+}

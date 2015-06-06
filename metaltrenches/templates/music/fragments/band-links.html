@@ -1,27 +1,25 @@
-{% if band.website|length or band.facebook|length or band.twitter|length or band.bandcamp|length %}
-  <h3>Links</h3>
-{% endif %}
+<ul class="list-unstyled">
+  {% if band.website|length %}
+    <li><a href="{{ band.website }}" target="_blank">
+      <h4>{{ band.name }}'s Website</h4>
+    </a></li>
+  {% endif %}
 
-{% if band.website|length %}
-  <a href="{{ band.website }}" target="_blank">
-    <h4>{{ band.name }}'s Website</h4>
-  </a><br>
-{% endif %}
+  {% if band.facebook|length %}
+    <li><a href="{{ band.facebook }}" target="_blank">
+      <h4>{{ band.name }}'s Facebook Page</h4>
+    </a></li>
+  {% endif %}
 
-{% if band.facebook|length %}
-  <a href="{{ band.facebook }}" target="_blank">
-    <h4>{{ band.name }}'s Facebook Page</h4>
-  </a><br>
-{% endif %}
+  {% if band.twitter|length %}
+    <li><a href="{{ band.twitter }}" target="_blank">
+      <h4>{{ band.name }}'s Twitter</h4>
+    </a></li>
+  {% endif %}
 
-{% if band.twitter|length %}
-  <a href="{{ band.twitter }}" target="_blank">
-    <h4>{{ band.name }}'s Twitter</h4>
-  </a><br>
-{% endif %}
-
-{% if band.bandcamp|length %}
-  <a href="{{ band.bandcamp }}" target="_blank">
-    <h4>{{ band.name }}'s Bandcamp Site</h4>
-  </a><br>
-{% endif %}
+  {% if band.bandcamp|length %}
+    <li><a href="{{ band.bandcamp }}" target="_blank">
+      <h4>{{ band.name }}'s Bandcamp Site</h4>
+    </a></li>
+  {% endif %}
+</ul>
