@@ -4,7 +4,7 @@ var fbShare = function () {
    method: 'share_open_graph',
    action_type: 'og.likes',
    action_properties: JSON.stringify({
-    object:'https://developers.facebook.com/docs/',
+    object:'http://metaltrenches.com/{{ review.get_absolute_url }}'
    })
   }, function(response){});
 };
