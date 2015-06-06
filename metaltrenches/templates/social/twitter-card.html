@@ -1,5 +1,6 @@
+<meta name="twitter:title" content="{{ review.title|safe }}">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:site" content="@metaltrenches">
-<meta name="twitter:creator" content="@metaltrenches">
-<meta name="twitter:description" content="{{ description }}">
-<meta name="twitter:image" content="http://metaltrenches.com{{ MEDIA_URL }}{{ image }}">
+<meta name="twitter:site" content="@MetalTrenches">
+<meta name="twitter:creator" content="@MetalTrenches">
+<meta name="twitter:description" content="{{ review.body|striptags|slice:":255" }}">
+<meta name="twitter:image" content="http://metaltrenches.com{{ MEDIA_URL }}{{ review.album.cover_art }}">

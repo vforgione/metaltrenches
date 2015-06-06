@@ -8,5 +8,6 @@ from .middleware import *
 from .project import *
 from .search import *
 from .site import *
+from .social import *
 from .static import *
 from .templates import *
