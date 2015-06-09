@@ -8,6 +8,7 @@
         text: 'Average Score: {{ avg_score }}'
       },
       xAxis: {
+        allowDecimals: false,
         categories: {{ categories }},
         title: {
           text: null
@@ -15,6 +16,8 @@
       },
       yAxis: {
         min: 0,
+        max: 10,
+        allowDecimals: false,
         title: {
           text: 'Score',
           align: 'high'

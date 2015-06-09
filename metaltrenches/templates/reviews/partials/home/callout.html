@@ -11,7 +11,7 @@
       <header>
         <h1>{{ review.title }}</h1>
         {% if review.subtitle %}<h2>{{ review.subtitle }}</h2>{% endif %}
-        <h4>{{ review.album }}</h4>
+        <h4><em>{{ review.album.title }}</em> by {{ review.album.band.name }}</h4>
         <h5>{{ review.published|date }}</h5>
       </header>
       <!-- /title -->

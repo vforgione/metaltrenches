@@ -9,20 +9,7 @@
   <!-- list of reviews -->
 
   {% for review in reviews %}
-  <div class="row">
-    <div class="col-lg-4">
-      <header>
-        <h1><a href="{{ review.get_absolute_url }}">{{ review.title }}</a></h1>
-        {% if review.subtitle %}<h2>{{ review.subtitle }}</h2>{% endif %}
-        <h5>{{ review.published|date }}</h5>
-        <h4>{{ review.album }}</h4>
-      </header>
-    </div>
-    <div class="col-lg-8">
-      {{ review.body|striptags|slice:":450" }} ... <a href="{{ review.get_absolute_url }}">Keep Reading</a>
-    </div>
-  </div>
-  <hr>
+    {% include "reviews/partials/home/block.html" %}
   {% endfor %}
   <!-- /list of reviews -->
 
