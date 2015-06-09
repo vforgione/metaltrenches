@@ -23,7 +23,7 @@ STATICFILES_FINDERS = (
 PIPELINE_CSS = {
     "global": {
         "source_filenames": (
-            "fontawesome/css/font-awesome.css",
+            # "fontawesome/css/font-awesome.css",
             "stylesheets/base.css",
         ),
         "output_filename": "css/global.css"
@@ -45,7 +45,7 @@ PIPELINE_JS = {
     },
     "bootstrap": {
         "source_filenames": (
-            "jquery/dist/jquery.js",
+            # "jquery/dist/jquery.js",
             "bootstrap/dist/js/bootstrap.js",
         ),
         "output_filename": "js/bootstrap.js"
