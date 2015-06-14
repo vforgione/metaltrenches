@@ -57,6 +57,8 @@ class Review(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
+        if self.published is None:
+            return "review-preview", (self.pk, )
         return "review-detail", (self.slug, self.pk)
 
     @property

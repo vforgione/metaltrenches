@@ -1,5 +1,6 @@
 from annoying.decorators import render_to
 from django.conf import settings
+from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import get_object_or_404
 from django.views.decorators.cache import cache_page
@@ -39,4 +40,13 @@ def review_list(request):
         reviews = paginator.page(paginator.num_pages)
     return {
         "reviews": reviews,
+    }
+
+
+@login_required
+@render_to("reviews/review-detail.html")
+def preview_review(request, pk):
+    review = get_object_or_404(Review.objects.all(), pk=pk)
+    return {
+        "review": review,
     }

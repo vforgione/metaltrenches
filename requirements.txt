@@ -1,9 +1,11 @@
 Django>=1.8,<1.9
-Fabric
 django-annoying
 django-haystack
 django-pipeline
+djes
 elasticsearch
+Fabric
+ipython
 model-mommy
 Pillow
 psycopg2

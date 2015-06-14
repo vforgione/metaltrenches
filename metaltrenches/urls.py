@@ -12,6 +12,7 @@ urlpatterns = [
     # reviews
     url(r"^reviews/?$", "metaltrenches.apps.reviews.views.review_list", name="review-list"),
     url(r"^reviews/(?P<slug>[\w\-]+)-(?P<pk>\d+)/?$", "metaltrenches.apps.reviews.views.review_detail", name="review-detail"),
+    url(r"^preview/(?P<pk>\d+)/?", "metaltrenches.apps.reviews.views.preview_review", name="review-preview"),
 
     # bands
     url(r"^bands/?$", "metaltrenches.apps.music.views.band_list", name="band-list"),

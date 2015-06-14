@@ -18,7 +18,7 @@ app_settings = "metaltrenches.settings.local"
 def install():
     cmd = "cd {app_path} && " \
           "source {app_venv_source} && " \
-          "pip install -r requirements.txt && " \
+          "pip install --upgrade -r requirements.txt && " \
           "npm install"
     args = dict(app_path=app_path, app_venv_source=app_venv_source)
     run(cmd.format(**args))
