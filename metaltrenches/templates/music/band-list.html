@@ -7,6 +7,12 @@
 
 
 {% block content %}
+  <!-- pagination -->
+  {% include "reviews/partials/pagination/paginator.html" with collection=bands %}
+  <!-- /pagination -->
+
+  <hr>
+
   <!-- list of bands -->
   {% for band in bands %}
   <div class="row">

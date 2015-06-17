@@ -5,6 +5,11 @@
 
 
 {% block content %}
+  <!-- pagination -->
+  {% include "reviews/partials/pagination/paginator.html" with collection=albums %}
+  <!-- /pagination -->
+
+  <hr>
 
   <!-- list of albums -->
   {% for album in albums %}

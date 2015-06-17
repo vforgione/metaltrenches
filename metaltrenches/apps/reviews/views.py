@@ -38,8 +38,15 @@ def review_list(request):
         reviews = paginator.page(1)
     except EmptyPage:
         reviews = paginator.page(paginator.num_pages)
+    _reviews = [r for r in reviews]
+    if len(_reviews):
+        first, last = _reviews[0], _reviews[-1]
+    else:
+        first, last = "", ""
     return {
         "reviews": reviews,
+        "first": first,
+        "last": last,
     }
 
 
@@ -56,9 +63,16 @@ def search(request):
         reviews = paginator.page(1)
     except EmptyPage:
         reviews = paginator.page(paginator.num_pages)
+    _reviews = [r for r in reviews]
+    if len(_reviews):
+        first, last = _reviews[0], _reviews[-1]
+    else:
+        first, last = "", ""
     return {
         "query": q,
         "reviews": reviews,
+        "first": first,
+        "last": last,
     }
 
 

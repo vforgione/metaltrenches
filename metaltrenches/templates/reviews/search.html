@@ -20,14 +20,22 @@
 
   <hr>
 
-  <!-- list of reviews -->
-  {% for review in reviews %}
-    {% include "reviews/partials/home/block.html" %}
-  {% endfor %}
-  <!-- /list of reviews -->
+  {% if reviews|length %}
+    <!-- pagination -->
+    {% include "reviews/partials/pagination/paginator.html" with collection=reviews %}
+    <!-- /pagination -->
 
-  <!-- pagination -->
-  {% include "reviews/partials/pagination/paginator.html" with collection=reviews %}
-  <!-- /pagination -->
+    <hr>
+
+    <!-- list of reviews -->
+    {% for review in reviews %}
+      {% include "reviews/partials/home/block.html" %}
+    {% endfor %}
+    <!-- /list of reviews -->
+
+    <!-- pagination -->
+    {% include "reviews/partials/pagination/paginator.html" with collection=reviews %}
+    <!-- /pagination -->
+  {% endif %}
 
 {% endblock %}

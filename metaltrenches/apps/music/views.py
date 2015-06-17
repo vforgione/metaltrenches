@@ -34,8 +34,15 @@ def band_list(request):
         bands = paginator.page(1)
     except EmptyPage:
         bands = paginator.page(paginator.num_pages)
+    _bands = [b for b in bands]
+    if len(_bands):
+        first, last = _bands[0], bands[-1]
+    else:
+        first, last = "", ""
     return {
         "bands": bands,
+        "first": first,
+        "last": last,
     }
 
 
@@ -65,6 +72,13 @@ def album_list(request):
         albums = paginator.page(1)
     except EmptyPage:
         albums = paginator.page(paginator.num_pages)
+    _albums = [a for a in albums]
+    if len(_albums):
+        first, last = _albums[0], _albums[-1]
+    else:
+        first, last = "", ""
     return {
         "albums": albums,
+        "first": first,
+        "last": last,
     }
