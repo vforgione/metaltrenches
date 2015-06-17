@@ -1,0 +1,33 @@
+{% extends "base/contained.html" %}
+
+
+{% block title %}Reviews{{ block.super }}{% endblock %}
+
+
+{% block content %}
+  <div class="row">
+    <header>
+      <h1>
+        {% if reviews|length %}
+        Results For
+        {% else %}
+        No Results Found For
+        {% endif %}
+        <em>{{ query }}</em>
+      </h1>
+    </header>
+  </div>
+
+  <hr>
+
+  <!-- list of reviews -->
+  {% for review in reviews %}
+    {% include "reviews/partials/home/block.html" %}
+  {% endfor %}
+  <!-- /list of reviews -->
+
+  <!-- pagination -->
+  {% include "reviews/partials/pagination/paginator.html" with collection=reviews %}
+  <!-- /pagination -->
+
+{% endblock %}

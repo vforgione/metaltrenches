@@ -1,4 +1,0 @@
-{{ object.name }}
-{% for album in object.albums.all %}
-{{ album.title }}
-{% endfor %}

@@ -23,7 +23,7 @@ urlpatterns = [
     url(r"^albums/(?P<slug>[\w\-]+)/?$", "metaltrenches.apps.music.views.album_detail", name="album-detail"),
     
     # search
-    url(r"^search/?$", include("haystack.urls")),
+    url(r"^search/?$", "metaltrenches.apps.reviews.views.search", name="search"),
 
     # static pages
     url(r"^contact/?$", TemplateView.as_view(template_name='base/contact.html'), name='contact'),

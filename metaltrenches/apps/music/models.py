@@ -1,11 +1,16 @@
 from django.db import models
+from djes.models import Indexable
 
+from .fields import ImageField
 from ..utils import make_slug
 
 
-class Genre(models.Model):
+class Genre(Indexable):
     name = models.CharField(max_length=100, unique=True)
     slug = models.SlugField(max_length=100, unique=True, blank=True, editable=False)
+
+    class Mapping(object):
+        pass
 
     def save(self, *args, **kwargs):
         self.slug = make_slug(self.name)
@@ -15,13 +20,16 @@ class Genre(models.Model):
         return self.name
 
 
-class Band(models.Model):
+class Band(Indexable):
     name = models.CharField(max_length=100, unique=True)
     slug = models.SlugField(max_length=100, unique=True, blank=True, editable=False)
     website = models.URLField(null=True, default=None, blank=True)
     facebook = models.URLField(null=True, default=None, blank=True)
     twitter = models.URLField(null=True, default=None, blank=True)
     bandcamp = models.URLField(null=True, default=None, blank=True)
+
+    class Mapping(object):
+        pass
 
     def save(self, *args, **kwargs):
         self.slug = make_slug(self.name)
@@ -35,7 +43,7 @@ class Band(models.Model):
         return "band-detail", (self.slug, )
 
 
-class Album(models.Model):
+class Album(Indexable):
     band = models.ForeignKey(Band, related_name="albums")
     title = models.CharField(max_length=200)
     release_date = models.DateField()
@@ -47,6 +55,9 @@ class Album(models.Model):
         unique_together = (
             ("band", "title", "release_date", ),
         )
+
+    class Mapping(object):
+        cover_art = ImageField()
 
     def save(self, *args, **kwargs):
         self.slug = make_slug(self.title)

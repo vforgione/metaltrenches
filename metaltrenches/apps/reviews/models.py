@@ -1,8 +1,10 @@
 from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator
 from django.db import models
+from djes.models import Indexable
 
 from .managers import PublishedManager, ScheduledManager, DraftManager
+from .mixins import Searchable
 from ..music.models import Album
 from ..utils import make_slug
 
@@ -28,7 +30,7 @@ class Rating(models.Model):
         return "[{album}] {factor}: {score}".format(album=self.album, factor=self.factor, score=self.score)
 
 
-class Review(models.Model):
+class Review(Indexable, Searchable):
     # basic fields
     author = models.ForeignKey(User, related_name="reviews")
     title = models.CharField(max_length=100, unique=True)
@@ -45,6 +47,10 @@ class Review(models.Model):
     published_objects = PublishedManager()
     scheduled_objects = ScheduledManager()
     draft_objects = DraftManager()
+
+    class Mapping(object):
+        pass
+
 
     def save(self, *args, **kwargs):
         self.slug = make_slug(self.title)

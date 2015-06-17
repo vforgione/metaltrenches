@@ -43,10 +43,30 @@ def review_list(request):
     }
 
 
+@cache_page(settings.CACHE_DURATION)
+@render_to("reviews/search.html")
+def search(request):
+    q = request.GET.get("q")
+    reviews = Review.search(q)
+    paginator = Paginator(reviews, 30)
+    page = request.GET.get("page")
+    try:
+        reviews = paginator.page(page)
+    except PageNotAnInteger:
+        reviews = paginator.page(1)
+    except EmptyPage:
+        reviews = paginator.page(paginator.num_pages)
+    return {
+        "query": q,
+        "reviews": reviews,
+    }
+
+
 @login_required
 @render_to("reviews/review-detail.html")
 def preview_review(request, pk):
     review = get_object_or_404(Review.objects.all(), pk=pk)
+
     return {
         "review": review,
     }

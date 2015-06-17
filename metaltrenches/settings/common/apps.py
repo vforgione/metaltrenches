@@ -11,7 +11,7 @@ DJANGO_APPS = (
 
 THIRD_PARTY_APPS = (
     "pipeline",
-    "haystack",
+    "djes",
 )
 
 PROJECT_APPS = (

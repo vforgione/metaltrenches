@@ -1,6 +1,5 @@
 Django>=1.8,<1.9
 django-annoying
-django-haystack
 django-pipeline
 djes
 elasticsearch
