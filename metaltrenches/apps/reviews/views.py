@@ -47,7 +47,7 @@ def review_list(request):
 @render_to("reviews/search.html")
 def search(request):
     q = request.GET.get("q")
-    reviews = Review.search(q)
+    reviews = Review.search(q, {"status": "published"})
     paginator = Paginator(reviews, 30)
     page = request.GET.get("page")
     try:

@@ -51,7 +51,6 @@ class Review(Indexable, Searchable):
     class Mapping(object):
         pass
 
-
     def save(self, *args, **kwargs):
         self.slug = make_slug(self.title)
         super(Review, self).save(*args, **kwargs)
