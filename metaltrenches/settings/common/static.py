@@ -30,7 +30,7 @@ PIPELINE_CSS = {
     },
     "bootstrap": {
         "source_filenames": (
-            "bootstrap/dist/css/bootstrap.css",
+            "stylesheets/custom-bootstrap.css",
         ),
         "output_filename": "css/bootstrap.css"
     },

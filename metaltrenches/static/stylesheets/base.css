@@ -30,7 +30,6 @@ footer {
 }
 
 .dont-decorate {
-  color: #000000;
   text-decoration: none;
 }
 
@@ -50,16 +49,16 @@ footer {
   bottom: 0;
   width: 100% !important;
   height: 50%;
-  background-image: linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
-  background-image: -moz-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
-  background-image: -ms-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
-  background-image: -o-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
-  background-image: -webkit-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
+  background-image: linear-gradient(top, rgba(255,255,255,0) 0%, rgba(39,43,48,1) 100%);
+  background-image: -moz-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(39,43,48,1) 100%);
+  background-image: -ms-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(39,43,48,1) 100%);
+  background-image: -o-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(39,43,48,1) 100%);
+  background-image: -webkit-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(39,43,48,1) 100%);
   content: "\00a0";
 }
 
 .hide-overflow::before {
-  color: #337ab7;
+  color: #dfdfdf;
   position: absolute;
   bottom: 0;
   width: 100% !important;
@@ -86,7 +85,7 @@ footer {
 
 .share-facebook {
   color: #3b5998;
-  padding: 3px;
+  padding: 3px 10px 3px 10px;
 }
 
 .share-facebook:hover {
@@ -95,12 +94,14 @@ footer {
 }
 
 .share-reddit {
-  color: #336699;
+  color: #ffffff;
+  /*color: #336699;*/
   padding: 3px;
 }
 
 .share-reddit:hover {
   background-color: #ffffff;
+  color: #336699;
 }
 
 .teaser-block {

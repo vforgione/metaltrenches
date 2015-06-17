@@ -2,17 +2,29 @@
   $(function () {
     $('#ratings-chart').highcharts({
       chart: {
-        type: 'bar'
+        type: 'bar',
+        backgroundColor: '#272b30',
+        style: {
+          color: '#ffffff'
+        }
       },
       title: {
-        text: 'Average Score: {{ avg_score }}'
+        text: 'Average Score: {{ avg_score }}',
+        style: {
+          color: '#ffffff'
+        }
       },
       xAxis: {
         allowDecimals: false,
         categories: {{ categories }},
         title: {
           text: null
-        }
+        },
+        labels: {
+          style: {
+            color: '#ffffff'
+          }
+        },
       },
       yAxis: {
         min: 0,
@@ -20,10 +32,16 @@
         allowDecimals: false,
         title: {
           text: 'Score',
-          align: 'high'
+          align: 'high',
+          style: {
+            color: '#ffffff'
+          }
         },
         labels: {
-          overflow: 'justify'
+          overflow: 'justify',
+          style: {
+            color: '#ffffff'
+          }
         }
       },
       tooltip: {
@@ -39,10 +57,14 @@
       credits: {
         enabled: false
       },
+      legend: {
+        enabled: false
+      },
       series: [{
         name: '{{ album_title|safe }}',
         data: {{ scores }}
-      }]
+      }],
+      colors: ['#cfcfcf']
     });
   });
 </script>
