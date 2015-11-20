@@ -1,0 +1,30 @@
+.share-twitter {
+  color: #55acee;
+  padding: 3px;
+}
+
+.share-twitter:hover {
+  background-color: #55acee;
+  color: #ffffff;
+}
+
+.share-facebook {
+  color: #3b5998;
+  padding: 3px 10px 3px 10px;
+}
+
+.share-facebook:hover {
+  background-color: #3b5998;
+  color: #ffffff;
+}
+
+.share-reddit {
+  color: #ffffff;
+  /*color: #336699;*/
+  padding: 3px;
+}
+
+.share-reddit:hover {
+  background-color: #ffffff;
+  color: #336699;
+}
