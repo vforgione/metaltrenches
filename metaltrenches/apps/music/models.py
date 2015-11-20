@@ -6,6 +6,9 @@ class Genre(models.Model):
     name = models.CharField(max_length=100, unique=True)
     slug = models.SlugField(max_length=settings.SLUG_LENGTH, unique=True, blank=True, editable=False)
 
+    class Meta(object):
+        app_label = 'music'
+
     def __str__(self):
         return self.name
 
