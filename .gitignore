@@ -1,6 +1,7 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
+*$py.class
 
 # C extensions
 *.so
@@ -8,12 +9,12 @@ __pycache__/
 # Distribution / packaging
 .Python
 env/
-bin/
 build/
 develop-eggs/
 dist/
+downloads/
 eggs/
-include/
+.eggs/
 lib/
 lib64/
 parts/
@@ -23,54 +24,46 @@ var/
 .installed.cfg
 *.egg
 
+# PyInstaller
+*.manifest
+*.spec
+
 # Installer logs
 pip-log.txt
 pip-delete-this-directory.txt
 
 # Unit test / coverage reports
+htmlcov/
 .tox/
 .coverage
+.coverage.*
 .cache
 nosetests.xml
 coverage.xml
+*,cover
+.hypothesis/
 
 # Translations
 *.mo
-
-# IDE / Vim
-.mr.developer.cfg
-.project
-.pydevproject
-.idea
-.ropeproject
-*.swp
-*tmp
-*~
+*.pot
 
 # Django stuff:
 *.log
-*.pot
-*_settings.py
-*_config.py
-*.sqlite3
 
 # Sphinx documentation
 docs/_build/
 
-# Platform / OS
-.DS_Store
-Thunbs.db
+# PyBuilder
+target/
 
-# npm/bower
-bower_components/
-node_modules/
-
-# vagrant/ansible
+# project stuff
+.idea/
+*.sqlite3
 .vagrant/
-
-# static files
-assets/*
-!assets/.gitkeep
 media/*
 !media/.gitkeep
+static/*
+!static/.gitkeep
+node_modules/
+bower_components/
 dumps/
