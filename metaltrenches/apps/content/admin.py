@@ -1,9 +1,15 @@
 from django import forms
 from django.contrib import admin
+from django.core.urlresolvers import reverse
 from django.db import models
 
 from .models import Post, ReviewItem, Review, RatingFactor, Rating
-# from .utils import get_preview_link
+
+
+def get_preview_link(admin_class, instance):
+    """generates a private link for previewing content - avoids published_objects filter, enforces logged in
+    """
+    return reverse('preview', kwargs={'slug': instance.slug, 'pk': instance.pk})
 
 
 class RatingInline(admin.TabularInline):
@@ -27,7 +33,7 @@ class ReviewAdmin(admin.ModelAdmin):
     formfield_overrides = {
         models.TextField: {'widget': forms.Textarea(attrs={'class': 'mceEditor', 'rows': '50'})},
     }
-    # view_on_site = get_preview_link
+    view_on_site = get_preview_link
 
     class Media:
         js = [
@@ -40,7 +46,7 @@ class PostAdmin(admin.ModelAdmin):
     formfield_overrides = {
         models.TextField: {'widget': forms.Textarea(attrs={'class': 'mceEditor', 'rows': '50'})},
     }
-    # view_on_site = get_preview_link
+    view_on_site = get_preview_link
 
     class Media:
         js = [

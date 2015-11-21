@@ -1,0 +1,26 @@
+{% load static %}
+
+
+<a href="{{ content.get_absolute_url }}">
+
+  <div class="col-lg-6 callout" style="background-image:url({{ content.get_detail_image }});">
+    <div class="callout-title-container">
+      <h1>
+        <span class="callout-title-text">{{ content.title }}</span>
+      </h1>
+    </div>
+
+    <div>
+      <span class="pull-right callout-date">{{ content.published|date }}</span>
+    </div>
+
+    {% if content.get_detail_album and content.get_detail_band %}
+    <div class="callout-artist-container">
+      <h2 class="callout-artist-text">
+        {{ content.get_detail_album.title }}<br>
+        <small>by</small> {{ content.get_detail_band.name }}
+      </h2>
+    </div>
+    {% endif %}
+  </div>
+</a>

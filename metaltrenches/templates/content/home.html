@@ -1,0 +1,30 @@
+{% extends 'base/jumbo.html' %}
+{% load pipeline static %}
+
+
+{% block title %}HOME{{ block.super }}{% endblock %}
+
+
+{% block stylesheets %}{% stylesheet 'homepage' %}{% endblock %}
+
+
+{% block jumbotron %}
+  <div class="row">
+    {% include 'content/partials/home/pinned-content.html' with content=pinned_content.0 %}
+    {% include 'content/partials/home/pinned-content.html' with content=pinned_content.1 %}
+  </div>
+  <div class="row">
+    {% include 'content/partials/home/pinned-content.html' with content=pinned_content.2 %}
+    {% include 'content/partials/home/pinned-content.html' with content=pinned_content.3 %}
+  </div>
+{% endblock jumbotron %}
+
+
+{% block content %}
+  {% for item in content %}
+    {% include 'content/partials/content/list-row.html' with content=item %}
+    {% if not forloop.last %}
+    <hr>
+    {% endif %}
+  {% endfor %}
+{% endblock content %}

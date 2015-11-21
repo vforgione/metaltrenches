@@ -24,6 +24,8 @@
 }
 
 .callout-artist-container {
+  position: absolute;
+  bottom: 30px;
   padding-left: 15px;
   -ms-transform: rotate(1deg);
   -webkit-transform: rotate(1deg);
