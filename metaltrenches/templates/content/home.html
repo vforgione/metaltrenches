@@ -1,11 +1,21 @@
 {% extends 'base/jumbo.html' %}
-{% load pipeline static %}
+{% load pipeline %}
 
 
-{% block title %}HOME{{ block.super }}{% endblock %}
+{% block title %}
+  HOME{{ block.super }}
+{% endblock title %}
 
 
-{% block stylesheets %}{% stylesheet 'homepage' %}{% endblock %}
+{% block extra_meta %}
+  {% include 'social/open-graph.html' %}
+  {% include 'social/twitter-card.html' %}
+{% endblock extra_meta %}
+
+
+{% block stylesheets %}
+  {% stylesheet 'homepage' %}
+{% endblock stylesheets %}
 
 
 {% block jumbotron %}

@@ -1,0 +1,79 @@
+{% extends 'base/jumbo.html' %}
+{% load pipeline social highcharts %}
+
+
+{% block title %}
+  {{ review.title }}{% if review.subtitle %}: {{ review.subtitle }}{% endif %}
+  {{ block.super }}
+{% endblock title %}
+
+
+{% block extra_meta %}
+  {% include 'social/open-graph.html' %}
+  {% include 'social/twitter-card.html' %}
+{% endblock extra_meta %}
+
+
+{% block stylesheets %}
+  {% stylesheet 'content' %}
+{% endblock stylesheets %}
+
+
+{% block social_scripts %}
+  {% fb_sdk %}
+{% endblock social_scripts %}
+
+
+{% block jumbotron %}
+  <div class="row">
+    <div class="col-lg-6">
+      <img src="{{ review.get_detail_image }}" class="img-responsive">
+    </div>
+    <div class="col-lg-6">
+      <div class="container container-fluid">
+        <div class="row">
+          <h1>{{ review.title }}</h1>
+        </div>
+        {% if review.subtitle %}
+          <div class="row">
+            <h2>{{ review.subtitle }}</h2>
+          </div>
+        {% endif %}
+        <div class="row">
+          <h5>{{ review.published|date }}</h5>
+        </div>
+        <div class="row">
+          {% include 'content/partials/review-detail/band-album-lines.html' %}
+        </div>
+        <div class="row">
+          <p>&nbsp;</p>
+          {% include 'social/share-tools.html' %}
+        </div>
+        <div class="row">
+          <p>&nbsp;</p>
+          {% include 'content/partials/review-detail/band-links.html' %}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+
+{% block content %}
+  {% if chart_object %}
+    <div id="ratings-chart" class="row" style="height:270px;"></div>
+  {% endif %}
+
+  <div class="row">
+    {{ review.body|safe }}
+  </div>
+{% endblock %}
+
+
+{% block scripts %}
+  {% if chart_object %}
+    {% javascript 'highcharts' %}
+    {% hc_script chart_object %}
+  {% endif %}
+  {% include 'social/fb-share-script.html' %}
+{% endblock scripts %}

@@ -16,6 +16,14 @@ class Genre(models.Model):
     # def get_absolute_url(self):
     #     return 'music:genre-detail', (self.slug, self.pk)
 
+    @property
+    def related_albums(self):
+        return self.albums.all().order_by('title')
+
+    @property
+    def related_bands(self):
+        return sorted([album.band for album in self.albums.all()], key=lambda b: b.name)
+
 
 class Band(models.Model):
     name = models.CharField(max_length=100, unique=True)

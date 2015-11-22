@@ -90,9 +90,9 @@ class Post(BaseContent):
     class Meta(object):
         app_label = 'content'
 
-    # @models.permalink
-    # def get_absolute_url(self):
-    #     return 'post-detail', (self.slug, self.pk)
+    @models.permalink
+    def get_absolute_url(self):
+        return 'post-detail', (self.slug, self.pk)
 
 
 class ReviewItem(models.Model):
@@ -126,9 +126,9 @@ class Review(BaseContent):
     class Meta(object):
         app_label = 'content'
 
-    # @models.permalink
-    # def get_absolute_url(self):
-    #     return 'review-detail', (self.slug, self.pk)
+    @models.permalink
+    def get_absolute_url(self):
+        return 'review-detail', (self.slug, self.pk)
 
     @cached_property
     def _get_first_subject(self):
@@ -178,6 +178,11 @@ class Review(BaseContent):
     def get_detail_event(self):
         self._get_detail_band_album_event
         return self._detail_event
+
+    def get_chart_object(self):
+        if self.subjects.count() == 1:
+            return self.subjects.first()
+        return None
 
 
 class RatingFactor(models.Model):

@@ -1,0 +1,40 @@
+{% extends 'base/contained.html' %}
+{% load pipeline social %}
+
+
+{% block title %}
+  A Litany of Audible Instruction
+  {{ block.super }}
+{% endblock title %}
+
+
+{% block extra_meta %}
+  {% include 'social/open-graph.html' %}
+  {% include 'social/twitter-card.html' %}
+{% endblock extra_meta %}
+
+
+{% block stylesheets %}
+  {% stylesheet 'content' %}
+{% endblock stylesheets %}
+
+
+{% block social_scripts %}
+  {% fb_sdk %}
+{% endblock social_scripts %}
+
+
+{% block content %}
+  {% for item in content %}
+    {% include 'content/partials/content/list-row.html' with content=item %}
+    <hr>
+
+  {% empty %}
+    <div class="row">
+      <h3>Guess I haven't written anything yet...</h3>
+    </div>
+
+  {% endfor %}
+
+  {% include 'content/partials/content/paginator.html' %}
+{% endblock content %}
