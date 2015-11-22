@@ -1,0 +1,57 @@
+{% extends 'base/jumbo.html' %}
+{% load pipeline social %}
+
+
+{% block title %}
+  {{ band.name }}
+  {{ block.super }}
+{% endblock title %}
+
+
+{% block extra_meta %}
+  {% include 'social/open-graph.html' %}
+  {% include 'social/twitter-card.html' %}
+{% endblock extra_meta %}
+
+
+{% block stylesheets %}
+  {% stylesheet 'content' %}
+{% endblock stylesheets %}
+
+
+{% block social_scripts %}
+  {% fb_sdk %}
+{% endblock social_scripts %}
+
+
+{% block jumbotron %}
+  <div class="row">
+    <div class="col-lg-6">
+      <img src="{{ MEDIA_URL }}{{ band.get_detail_image }}" class="img-responsive">
+    </div>
+    <div class="col-lg-6">
+      <h2>{{ band.name }}</h2>
+      <div>
+        {% include 'content/partials/review-detail/band-links.html' %}
+      </div>
+      <div>
+        <p>&nbsp;</p>
+        Reviews about {{ band.name }}<br>
+        {% for review in band.get_reviews %}
+        <a href="{% url 'review-detail' slug=review.slug pk=review.pk %}" class="dont-decorate">
+          {{ review.title }} <small>// {{ review.published|date }}</small></a><br>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+
+{% block content %}
+
+{% endblock %}
+
+
+{% block scripts %}
+  {% include 'social/fb-share-script.html' %}
+{% endblock scripts %}

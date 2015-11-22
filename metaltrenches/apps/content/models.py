@@ -114,7 +114,7 @@ class ReviewItem(models.Model):
 
 
 class Review(BaseContent):
-    subjects = models.ManyToManyField('content.ReviewItem')
+    subjects = models.ManyToManyField('content.ReviewItem', related_name='reviews')
     is_ordered = models.NullBooleanField(default=None, blank=True)
     is_ordered_descending = models.NullBooleanField(default=None, blank=True)
 

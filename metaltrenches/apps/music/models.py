@@ -9,6 +9,17 @@ class Genre(models.Model):
     class Meta(object):
         app_label = 'music'
 
+    @classmethod
+    def get_published_genres(cls):
+        from ..content.models import Review
+        genres = set()
+        for review in Review.published_objects.all():
+            for subject in review.subjects.all():
+                if isinstance(subject.content_object, Album):
+                    for genre in subject.content_object.genres.all():
+                        genres.add(genre)
+        return genres
+
     def __str__(self):
         return self.name
 
@@ -40,12 +51,49 @@ class Band(models.Model):
     class Meta(object):
         app_label = 'music'
 
+    @classmethod
+    def get_published_bands(cls):
+        from ..content.models import Review
+        bands = set()
+        for review in Review.published_objects.all():
+            for subject in review.subjects.all():
+                if isinstance(subject.content_object, Album):
+                    bands.add(subject.content_object.band)
+                elif isinstance(subject.content_object, Band):
+                    bands.add(subject.content_object)
+                elif isinstance(subject.content_object, Event):
+                    for band in subject.content_object.bands.all():
+                        bands.add(band)
+        return bands
+
     def __str__(self):
         return self.name
 
-    # @models.permalink
-    # def get_absolute_url(self):
-    #     return 'music:band-detail', (self.slug,)
+    @models.permalink
+    def get_absolute_url(self):
+        return 'band-detail', (self.slug, self.pk)
+
+    def get_detail_image(self):
+        if self.picture:
+            return self.picture
+        for album in self.albums.order_by('-release_date'):
+            if album.cover_art:
+                return album.cover_art
+
+    def get_reviews(self):
+        from ..content.models import Review
+        album_pks = [album.pk for album in self.albums.all()]
+        event_pks = [event.pk for event in self.events.all()]
+        reviews = set()
+        for review in Review.published_objects.all():
+            for subject in review.subjects.all():
+                if isinstance(subject.content_object, Band) and subject.content_object.pk == self.pk:
+                    reviews.add(review)
+                elif isinstance(subject.content_object, Album) and subject.content_object.pk in album_pks:
+                    reviews.add(review)
+                elif isinstance(subject.content_object, Event) and subject.content_object.pk in event_pks:
+                    reviews.add(review)
+        return reviews
 
 
 class Album(models.Model):
@@ -61,6 +109,16 @@ class Album(models.Model):
         unique_together = (
             ('band', 'title',),
         )
+
+    @classmethod
+    def get_published_albums(cls):
+        from ..content.models import Review
+        albums = set()
+        for review in Review.published_objects.all():
+            for subject in review.subjects.all():
+                if isinstance(subject.content_object, Album):
+                    albums.add(subject.content_object)
+        return albums
 
     def __str__(self):
         return '{band}: {title}'.format(band=self.band, title=self.title)
@@ -81,6 +139,16 @@ class Event(models.Model):
 
     class Meta(object):
         app_label = 'music'
+
+    @classmethod
+    def get_published_events(cls):
+        from ..content.models import Review
+        events = set()
+        for review in Review.published_objects.all():
+            for subject in review.subjects.all():
+                if isinstance(subject.content_object, Event):
+                    events.add(subject.content_object)
+        return events
 
     def __str__(self):
         return self.name

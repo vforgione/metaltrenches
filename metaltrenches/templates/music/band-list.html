@@ -25,9 +25,19 @@
 
 
 {% block content %}
-  {% for band in bands %}
+  {% for band_group in bands %}
     <div class="row">
-      <h3>{{ band.name }}</h3>
+      {% for band in band_group %}
+        {% if band %}
+          <div class="col-lg-4">
+            <h3>
+              <a href="{% url 'band-detail' slug=band.slug pk=band.pk %}" class="dont-decorate">
+                {{ band.name }}
+              </a>
+            </h3>
+          </div>
+        {% endif %}
+      {% endfor %}
     </div>
   {% endfor %}
 {% endblock content %}

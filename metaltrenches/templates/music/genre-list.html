@@ -25,38 +25,45 @@
 
 
 {% block content %}
-  {% for genre in genres %}
+  {% for genre_group in genres %}
     <div class="row">
-      <h3>
-        <a href="#" class="dont-decorate"
-           onclick="$('#{{ genre.slug }}-info').toggleClass('hidden');">
-          {{ genre }}
-        </a>
-      </h3>
+      {% for genre in genre_group %}
+        {% if genre %}
+          <div class="col-lg-6">
+            <h3>
+              <a href="#" class="dont-decorate"
+                 onclick="$('#{{ genre.slug }}-info').toggleClass('hidden');">
+                {{ genre }}
+              </a>
+            </h3>
 
-      <div id="{{ genre.slug }}-info" class="hidden">
-        <ul class="nav nav-tabs" role="tablist">
-          <li class="active">
-            <a href="#{{ genre.slug }}-albums" role="tab" data-toggle="tab">
-              <small>Albums</small>
-            </a>
-          </li>
-          <li>
-            <a href="#{{ genre.slug }}-bands" role="tab" data-toggle="tab">
-              <small>Bands</small>
-            </a>
-          </li>
-        </ul>
-        <div class="tab-content">
-          <div class="tab-pane active" id="{{ genre.slug }}-albums" style="overflow:hidden">
-            {% for album in genre.related_albums %}{{ album.title }}<br>{% endfor %}
+            <div id="{{ genre.slug }}-info" class="hidden">
+              <ul class="nav nav-tabs" role="tablist">
+                <li class="active">
+                  <a href="#{{ genre.slug }}-albums" role="tab" data-toggle="tab">
+                    <small>Albums</small>
+                  </a>
+                </li>
+                <li>
+                  <a href="#{{ genre.slug }}-bands" role="tab" data-toggle="tab">
+                    <small>Bands</small>
+                  </a>
+                </li>
+              </ul>
+              <div class="tab-content">
+                <div class="tab-pane active" id="{{ genre.slug }}-albums" style="overflow:hidden">
+                  {% for album in genre.related_albums %}{{ album.title }}
+                    <br>{% endfor %}
+                </div>
+                <div class="tab-pane" id="{{ genre.slug }}-bands" style="overflow:hidden">
+                  {% for band in genre.related_bands %}{{ band.name }}
+                    <br>{% endfor %}
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="tab-pane" id="{{ genre.slug }}-bands" style="overflow:hidden">
-            {% for band in genre.related_bands %}{{ band.name }}<br>{% endfor %}
-          </div>
-        </div>
-      </div>
-
+        {% endif %}
+      {% endfor %}
     </div>
   {% endfor %}
 {% endblock content %}

@@ -1,46 +1,42 @@
-{% with band=review.get_detail_band %}
-
-  {% if band.website or band.facebook or band.twitter %}
-    Connect with{{ band.name }}
+{% if band.website or band.facebook or band.twitter %}
+  Connect with{{ band.name }}
+  <br>
+  {% if band.website %}
+    <a href="{{ band.website }}" class="dont-decorate" target="_blank">{{ band.website }}</a>
     <br>
-    {% if band.website %}
-      <a href="{{ band.website }}" class="dont-decorate" target="_blank">{{ band.website }}</a>
-      <br>
-    {% endif %}
-
-    {% if band.facebook %}
-      <a href="{{ band.facebook }}" class="dont-decorate" target="_blank">Facebook</a>
-      <br>
-    {% endif %}
-
-    {% if band.twitter %}
-      <a href="{{ band.twitter }}" class="dont-decorate" target="_blank">Twitter</a>
-      <br>
-    {% endif %}
   {% endif %}
 
-  {% if band.bandcamp or band.itunes or band.playstore or band.amazon %}
-    <p>&nbsp;</p>
-    Buy their albums
+  {% if band.facebook %}
+    <a href="{{ band.facebook }}" class="dont-decorate" target="_blank">Facebook</a>
     <br>
-    {% if band.bandcamp %}
-      <a href="{{ band.bandcamp }}" class="dont-decorate" target="_blank">Bandcamp</a>
-      <br>
-    {% endif %}
-
-    {% if band.itunes %}
-      <a href="{{ band.itunes }}" class="dont-decorate" target="_blank">iTunes</a>
-      <br>
-    {% endif %}
-
-    {% if band.playstore %}
-      <a href="{{ band.playstore }}" class="dont-decorate" target="_blank">Google Playstore</a>
-      <br>
-    {% endif %}
-
-    {% if band.amazon %}
-      <a href="{{ band.amazon }}" class="dont-decorate" target="_blank">Amazon</a>
-    {% endif %}
   {% endif %}
 
-{% endwith %}
+  {% if band.twitter %}
+    <a href="{{ band.twitter }}" class="dont-decorate" target="_blank">Twitter</a>
+    <br>
+  {% endif %}
+{% endif %}
+
+{% if band.bandcamp or band.itunes or band.playstore or band.amazon %}
+  <p>&nbsp;</p>
+  Buy their albums
+  <br>
+  {% if band.bandcamp %}
+    <a href="{{ band.bandcamp }}" class="dont-decorate" target="_blank">Bandcamp</a>
+    <br>
+  {% endif %}
+
+  {% if band.itunes %}
+    <a href="{{ band.itunes }}" class="dont-decorate" target="_blank">iTunes</a>
+    <br>
+  {% endif %}
+
+  {% if band.playstore %}
+    <a href="{{ band.playstore }}" class="dont-decorate" target="_blank">Google Playstore</a>
+    <br>
+  {% endif %}
+
+  {% if band.amazon %}
+    <a href="{{ band.amazon }}" class="dont-decorate" target="_blank">Amazon</a>
+  {% endif %}
+{% endif %}

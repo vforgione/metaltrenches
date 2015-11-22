@@ -3,13 +3,15 @@ from django.conf import settings
 from django.shortcuts import get_object_or_404
 from django.views.decorators.cache import cache_page
 
+from ...utils.iterators import grouper
 from .models import Genre, Band, Album, Event
 
 
 @cache_page(settings.CACHE_DURATION)
 @render_to('music/genre-list.html')
 def genre_list(request):
-    genres = Genre.objects.all().order_by('name')
+    _genres = sorted(Genre.get_published_genres(), key=lambda g: g.name)
+    genres = grouper(_genres, 2)
     return {
         'genres': genres,
     }
@@ -18,7 +20,8 @@ def genre_list(request):
 @cache_page(settings.CACHE_DURATION)
 @render_to('music/band-list.html')
 def band_list(request):
-    bands = Band.objects.all().order_by('name')
+    _bands = sorted(Band.get_published_bands(), key=lambda b: b.name)
+    bands = grouper(_bands, 3)
     return {
         'bands': bands,
     }
@@ -27,7 +30,8 @@ def band_list(request):
 @cache_page(settings.CACHE_DURATION)
 @render_to('music/album-list.html')
 def album_list(request):
-    albums = Album.objects.all().order_by('title')
+    _albums = sorted(Album.get_published_albums(), key=lambda a: a.title)
+    albums = grouper(_albums, 3)
     return {
         'albums': albums,
     }
@@ -36,7 +40,16 @@ def album_list(request):
 @cache_page(settings.CACHE_DURATION)
 @render_to('music/event-list.html')
 def event_list(request):
-    events = Event.objects.all().order_by('name')
+    events = sorted(Event.get_published_events(), key=lambda e: e.name)
     return {
         'events': events,
+    }
+
+
+@cache_page(settings.CACHE_DURATION)
+@render_to('music/band-detail.html')
+def band_detail(request, slug, pk):
+    band = get_object_or_404(Band, slug=slug, pk=pk)
+    return {
+        'band': band,
     }

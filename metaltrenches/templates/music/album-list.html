@@ -25,9 +25,15 @@
 
 
 {% block content %}
-  {% for album in albums %}
+  {% for album_group in albums %}
     <div class="row">
-      <h3>{{ album.title }}</h3>
+      {% for album in album_group %}
+        {% if album %}
+          <div class="col-lg-4">
+            <h3>{{ album.title }} <small>{{ album.band.name }}</small></h3>
+          </div>
+        {% endif %}
+      {% endfor %}
     </div>
   {% endfor %}
 {% endblock content %}

@@ -51,7 +51,7 @@
         </div>
         <div class="row">
           <p>&nbsp;</p>
-          {% include 'content/partials/review-detail/band-links.html' %}
+          {% include 'content/partials/review-detail/band-links.html' with band=review.get_detail_band %}
         </div>
       </div>
     </div>
