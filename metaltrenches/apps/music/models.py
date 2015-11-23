@@ -123,9 +123,18 @@ class Album(models.Model):
     def __str__(self):
         return '{band}: {title}'.format(band=self.band, title=self.title)
 
-    # @models.permalink
-    # def get_absolute_url(self):
-    #     return 'music:album-detail', (self.slug, self.pk)
+    @models.permalink
+    def get_absolute_url(self):
+        return 'album-detail', (self.slug, self.pk)
+
+    def get_reviews(self):
+        from ..content.models import Review
+        reviews = set()
+        for review in Review.published_objects.all():
+            for subject in review.subjects.all():
+                if isinstance(subject.content_object, Album) and subject.content_object.pk == self.pk:
+                    reviews.add(review)
+        return reviews
 
 
 class Event(models.Model):

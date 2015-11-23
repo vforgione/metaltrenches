@@ -30,7 +30,14 @@
       {% for album in album_group %}
         {% if album %}
           <div class="col-lg-4">
-            <h3>{{ album.title }} <small>{{ album.band.name }}</small></h3>
+            <h3>
+              <a href="{{ album.get_absolute_url }}" class="dont-decorate">
+                {{ album.title }}
+              </a>
+              <a href="{{ album.band.get_absolute_url }}" class="dont-decorate">
+                <small>{{ album.band.name }}</small>
+              </a>
+            </h3>
           </div>
         {% endif %}
       {% endfor %}

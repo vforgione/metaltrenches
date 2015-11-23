@@ -39,6 +39,9 @@ urlpatterns = [
 
     # albums
     url(r'^albums/?$', 'metaltrenches.apps.music.views.album_list', name='album-list'),
+    url(r'^albums/(?P<slug>[\w\-]+)-(?P<pk>\d+)/?$',
+        'metaltrenches.apps.music.views.album_detail',
+        name='album-detail'),
 
     # events
     url(r'^events/?$', 'metaltrenches.apps.music.views.event_list', name='event-list'),

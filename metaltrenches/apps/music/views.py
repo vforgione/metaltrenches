@@ -53,3 +53,12 @@ def band_detail(request, slug, pk):
     return {
         'band': band,
     }
+
+
+@cache_page(settings.CACHE_DURATION)
+@render_to('music/album-detail.html')
+def album_detail(request, slug, pk):
+    album = get_object_or_404(Album, slug=slug, pk=pk)
+    return {
+        'album': album,
+    }

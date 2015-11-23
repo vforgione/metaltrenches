@@ -1,5 +1,5 @@
 {% if band.website or band.facebook or band.twitter %}
-  Connect with{{ band.name }}
+  Connect with {{ band.name }}
   <br>
   {% if band.website %}
     <a href="{{ band.website }}" class="dont-decorate" target="_blank">{{ band.website }}</a>
@@ -19,7 +19,7 @@
 
 {% if band.bandcamp or band.itunes or band.playstore or band.amazon %}
   <p>&nbsp;</p>
-  Buy their albums
+  Listen to {{ band.name }}
   <br>
   {% if band.bandcamp %}
     <a href="{{ band.bandcamp }}" class="dont-decorate" target="_blank">Bandcamp</a>

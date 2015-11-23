@@ -52,12 +52,16 @@
               </ul>
               <div class="tab-content">
                 <div class="tab-pane active" id="{{ genre.slug }}-albums" style="overflow:hidden">
-                  {% for album in genre.related_albums %}{{ album.title }}
-                    <br>{% endfor %}
+                  {% for album in genre.related_albums %}
+                    <a href="{{ album.get_absolute_url }}" class="dont-decorate">{{ album.title }}</a>
+                    <br>
+                  {% endfor %}
                 </div>
                 <div class="tab-pane" id="{{ genre.slug }}-bands" style="overflow:hidden">
-                  {% for band in genre.related_bands %}{{ band.name }}
-                    <br>{% endfor %}
+                  {% for band in genre.related_bands %}
+                    <a href="{{ band.get_absolute_url }}" class="dont-decorate">{{ band.name }}</a>
+                    <br>
+                  {% endfor %}
                 </div>
               </div>
             </div>
