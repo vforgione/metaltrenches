@@ -1,27 +1,10 @@
 {% extends 'base/contained.html' %}
-{% load pipeline social %}
 
 
 {% block title %}
-  Genres
+  Labels are like so... argh
   {{ block.super }}
 {% endblock title %}
-
-
-{% block extra_meta %}
-  {% include 'social/open-graph.html' %}
-  {% include 'social/twitter-card.html' %}
-{% endblock extra_meta %}
-
-
-{% block stylesheets %}
-  {% stylesheet 'content' %}
-{% endblock stylesheets %}
-
-
-{% block social_scripts %}
-  {% fb_sdk %}
-{% endblock social_scripts %}
 
 
 {% block content %}

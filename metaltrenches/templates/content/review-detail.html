@@ -1,5 +1,5 @@
 {% extends 'base/jumbo.html' %}
-{% load pipeline social highcharts %}
+{% load pipeline highcharts social %}
 
 
 {% block title %}
@@ -8,14 +8,8 @@
 {% endblock title %}
 
 
-{% block extra_meta %}
-  {% include 'social/open-graph.html' %}
-  {% include 'social/twitter-card.html' %}
-{% endblock extra_meta %}
-
-
 {% block stylesheets %}
-  {% stylesheet 'content' %}
+  {% stylesheet 'ratings' %}
 {% endblock stylesheets %}
 
 
@@ -75,5 +69,6 @@
     {% javascript 'highcharts' %}
     {% hc_script chart_object %}
   {% endif %}
+
   {% include 'social/fb-share-script.html' %}
 {% endblock scripts %}

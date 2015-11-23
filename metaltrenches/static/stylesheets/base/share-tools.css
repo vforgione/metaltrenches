@@ -28,3 +28,173 @@
   background-color: #ffffff;
   color: #336699;
 }
+
+/* Custom, iPhone Retina */
+@media only screen and (min-width: 320px) {
+  .share-twitter {
+    color: #55acee;
+    padding: 3px;
+  }
+
+  .share-twitter:hover {
+    background-color: #55acee;
+    color: #ffffff;
+  }
+
+  .share-facebook {
+    color: #3b5998;
+    padding: 3px 10px 3px 10px;
+  }
+
+  .share-facebook:hover {
+    background-color: #3b5998;
+    color: #ffffff;
+  }
+
+  .share-reddit {
+    color: #ffffff;
+    /*color: #336699;*/
+    padding: 3px;
+  }
+
+  .share-reddit:hover {
+    background-color: #ffffff;
+    color: #336699;
+  }
+}
+
+/* Extra Small Devices, Phones */
+@media only screen and (min-width: 480px) {
+  .share-twitter {
+    color: #55acee;
+    padding: 3px;
+  }
+
+  .share-twitter:hover {
+    background-color: #55acee;
+    color: #ffffff;
+  }
+
+  .share-facebook {
+    color: #3b5998;
+    padding: 3px 10px 3px 10px;
+  }
+
+  .share-facebook:hover {
+    background-color: #3b5998;
+    color: #ffffff;
+  }
+
+  .share-reddit {
+    color: #ffffff;
+    /*color: #336699;*/
+    padding: 3px;
+  }
+
+  .share-reddit:hover {
+    background-color: #ffffff;
+    color: #336699;
+  }
+}
+
+/* Small Devices, Tablets */
+@media only screen and (min-width: 768px) {
+  .share-twitter {
+    color: #55acee;
+    padding: 3px;
+  }
+
+  .share-twitter:hover {
+    background-color: #55acee;
+    color: #ffffff;
+  }
+
+  .share-facebook {
+    color: #3b5998;
+    padding: 3px 10px 3px 10px;
+  }
+
+  .share-facebook:hover {
+    background-color: #3b5998;
+    color: #ffffff;
+  }
+
+  .share-reddit {
+    color: #ffffff;
+    /*color: #336699;*/
+    padding: 3px;
+  }
+
+  .share-reddit:hover {
+    background-color: #ffffff;
+    color: #336699;
+  }
+}
+
+/* Medium Devices, Desktops */
+@media only screen and (min-width: 992px) {
+  .share-twitter {
+    color: #55acee;
+    padding: 3px;
+  }
+
+  .share-twitter:hover {
+    background-color: #55acee;
+    color: #ffffff;
+  }
+
+  .share-facebook {
+    color: #3b5998;
+    padding: 3px 10px 3px 10px;
+  }
+
+  .share-facebook:hover {
+    background-color: #3b5998;
+    color: #ffffff;
+  }
+
+  .share-reddit {
+    color: #ffffff;
+    /*color: #336699;*/
+    padding: 3px;
+  }
+
+  .share-reddit:hover {
+    background-color: #ffffff;
+    color: #336699;
+  }
+}
+
+/* Large Devices, Wide Screens */
+@media only screen and (min-width: 1200px) {
+  .share-twitter {
+    color: #55acee;
+    padding: 3px;
+  }
+
+  .share-twitter:hover {
+    background-color: #55acee;
+    color: #ffffff;
+  }
+
+  .share-facebook {
+    color: #3b5998;
+    padding: 3px 10px 3px 10px;
+  }
+
+  .share-facebook:hover {
+    background-color: #3b5998;
+    color: #ffffff;
+  }
+
+  .share-reddit {
+    color: #ffffff;
+    /*color: #336699;*/
+    padding: 3px;
+  }
+
+  .share-reddit:hover {
+    background-color: #ffffff;
+    color: #336699;
+  }
+}

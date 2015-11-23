@@ -21,17 +21,11 @@ STATICFILES_FINDERS = (
 PIPELINE_CSS = {
     'global': {
         'source_filenames': (
+            'stylesheets/base/custom-bootstrap.css',
             'stylesheets/base/base.css',
             'stylesheets/base/share-tools.css',
         ),
         'output_filename': 'css/global.css'
-    },
-
-    'bootstrap': {
-        'source_filenames': (
-            'stylesheets/base/custom-bootstrap.css',
-        ),
-        'output_filename': 'css/bootstrap.css'
     },
 
     'homepage': {
@@ -41,7 +35,7 @@ PIPELINE_CSS = {
         'output_filename': 'css/homepage.css'
     },
 
-    'content': {
+    'ratings': {
         'source_filenames': (
             'stylesheets/content/ratings-chart.css',
         ),
@@ -50,13 +44,6 @@ PIPELINE_CSS = {
 }
 
 PIPELINE_JS = {
-    'homepage': {
-        'source_filenames': (
-            'javascript/home-align.js',
-        ),
-        'output_filename': 'js/homepage.js'
-    },
-
     'bootstrap': {
         'source_filenames': (
             'bootstrap/dist/js/bootstrap.js',

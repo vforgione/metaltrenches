@@ -37,12 +37,11 @@ def preview(request, slug, pk):
 @render_to('content/home.html')
 def home(request):
     # pinned content
-    pinned_content = BaseContent.get_all_published(limit=4)
-    excluded_reviews = [content.pk for content in pinned_content if isinstance(content, Review)] or None
-    excluded_posts = [content.pk for content in pinned_content if isinstance(content, Post)] or None
+    pinned_content = Review.published_objects.all()[:4]
+    excluded_reviews = [content.pk for content in pinned_content] or None
     exclusion_mapping = {
         Review: excluded_reviews,
-        Post: excluded_posts,
+        Post: None,
     }
 
     # list of content

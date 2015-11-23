@@ -23,3 +23,148 @@ footer {
 .dont-decorate {
   text-decoration: none;
 }
+
+/* Custom, iPhone Retina */
+@media only screen and (min-width: 320px) {
+  html {
+    position: relative;
+    min-height: 100%;
+  }
+
+  body {
+    margin-bottom: 60px;
+  }
+
+  body, p {
+    font-size: 17px !important;
+  }
+
+  footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 40px;
+    background-color: #222;
+    color: #fff;
+  }
+
+  .dont-decorate {
+    text-decoration: none;
+  }
+}
+
+/* Extra Small Devices, Phones */
+@media only screen and (min-width: 480px) {
+  html {
+    position: relative;
+    min-height: 100%;
+  }
+
+  body {
+    margin-bottom: 60px;
+  }
+
+  body, p {
+    font-size: 17px !important;
+  }
+
+  footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 40px;
+    background-color: #222;
+    color: #fff;
+  }
+
+  .dont-decorate {
+    text-decoration: none;
+  }
+}
+
+/* Small Devices, Tablets */
+@media only screen and (min-width: 768px) {
+  html {
+    position: relative;
+    min-height: 100%;
+  }
+
+  body {
+    margin-bottom: 60px;
+  }
+
+  body, p {
+    font-size: 17px !important;
+  }
+
+  footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 40px;
+    background-color: #222;
+    color: #fff;
+  }
+
+  .dont-decorate {
+    text-decoration: none;
+  }
+}
+
+/* Medium Devices, Desktops */
+@media only screen and (min-width: 992px) {
+  html {
+    position: relative;
+    min-height: 100%;
+  }
+
+  body {
+    margin-bottom: 60px;
+  }
+
+  body, p {
+    font-size: 17px !important;
+  }
+
+  footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 40px;
+    background-color: #222;
+    color: #fff;
+  }
+
+  .dont-decorate {
+    text-decoration: none;
+  }
+}
+
+/* Large Devices, Wide Screens */
+@media only screen and (min-width: 1200px) {
+  html {
+    position: relative;
+    min-height: 100%;
+  }
+
+  body {
+    margin-bottom: 60px;
+  }
+
+  body, p {
+    font-size: 17px !important;
+  }
+
+  footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 40px;
+    background-color: #222;
+    color: #fff;
+  }
+
+  .dont-decorate {
+    text-decoration: none;
+  }
+}
