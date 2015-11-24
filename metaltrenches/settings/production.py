@@ -35,3 +35,43 @@ DATABASES = {
 DEBUG = False
 
 TEMPLATE_DEBUG = False
+
+
+# logging
+
+ADMINS = (
+    ('Vince Forgione', 'the.vincedent@icloud.com'),
+)
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'mail_admins': {
+            'class': 'django.utils.log.AdminEmailHandler',
+            'level': 'ERROR',
+            'include_html': True,
+        },
+        'logfile': {
+            'class': 'logging.handlers.WatchedFileHandler',
+            'filename': '/var/log/django/metaltrenches.log'
+        },
+    },
+    'loggers': {
+        'django.request': {
+            'handlers': ['mail_admins'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+        'django': {
+            'handlers': ['logfile'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+        'metaltrenches': {
+            'handlers': ['logfile'],
+            'level': 'WARNING',
+            'propagate': True
+        },
+    },
+}
