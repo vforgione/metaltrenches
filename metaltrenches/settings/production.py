@@ -43,6 +43,16 @@ ADMINS = (
     ('Vince Forgione', 'the.vincedent@icloud.com'),
 )
 
+EMAIL_USE_TLS = True
+
+EMAIL_HOST = 'smtp.gmail.com'
+
+EMAIL_HOST_USER = 'v.forgione@gmail.com'
+
+EMAIL_HOST_PASSWORD = '7h3M0n@R(h'
+
+EMAIL_PORT = 587
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
