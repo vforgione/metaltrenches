@@ -43,15 +43,19 @@ ADMINS = (
     ('Vince Forgione', 'the.vincedent@icloud.com'),
 )
 
-EMAIL_USE_TLS = True
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
-EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST = 'localhost'
 
-EMAIL_HOST_USER = 'v.forgione@gmail.com'
+EMAIL_PORT = 25
 
-EMAIL_HOST_PASSWORD = '7h3M0n@R(h'
+EMAIL_HOST_USER = ''
 
-EMAIL_PORT = 587
+EMAIL_HOST_PASSWORD = ''
+
+EMAIL_USE_TLS = False
+
+DEFAULT_FROM_EMAIL = 'Vince Forgione <metal.trenches@gmail.com>'
 
 LOGGING = {
     'version': 1,
