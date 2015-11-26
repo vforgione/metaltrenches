@@ -121,7 +121,7 @@ class Album(models.Model):
         return albums
 
     def __str__(self):
-        return '{band}: {title}'.format(band=self.band, title=self.title)
+        return '{title}'.format(title=self.title)
 
     @models.permalink
     def get_absolute_url(self):

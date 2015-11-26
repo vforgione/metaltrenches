@@ -12,6 +12,10 @@ def get_preview_link(admin_class, instance):
     return reverse('preview', kwargs={'slug': instance.slug, 'pk': instance.pk})
 
 
+def show_subjects(instance):
+    return ', '.join(str(subject.content_object) for subject in instance.subjects.all())
+
+
 class RatingInline(admin.TabularInline):
     model = Rating
     extra = 3
@@ -27,13 +31,18 @@ class ReviewItemAdmin(admin.ModelAdmin):
 
 
 class ReviewAdmin(admin.ModelAdmin):
+    date_hierarchy = 'published'
+    list_display = ('title', 'published', show_subjects)
+    list_filter = ('published',)
+    ordering = ('-pk',)
+    search_fields = ('title', 'subtitle', 'published')
+    view_on_site = get_preview_link
     autocomplete_lookup_fields = {
         'fk': ['subject'],
     }
     formfield_overrides = {
         models.TextField: {'widget': forms.Textarea(attrs={'class': 'mceEditor', 'rows': '50'})},
     }
-    view_on_site = get_preview_link
 
     class Media:
         js = [
@@ -43,10 +52,15 @@ class ReviewAdmin(admin.ModelAdmin):
 
 
 class PostAdmin(admin.ModelAdmin):
+    date_hierarchy = 'published'
+    list_display = ('title', 'published')
+    list_filter = ('published',)
+    ordering = ('-pk',)
+    search_fields = ('title', 'subtitle', 'published')
+    view_on_site = get_preview_link
     formfield_overrides = {
         models.TextField: {'widget': forms.Textarea(attrs={'class': 'mceEditor', 'rows': '50'})},
     }
-    view_on_site = get_preview_link
 
     class Media:
         js = [
