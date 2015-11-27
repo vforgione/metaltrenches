@@ -34,7 +34,7 @@ class ReviewAdmin(admin.ModelAdmin):
     date_hierarchy = 'published'
     list_display = ('title', 'published', show_subjects)
     list_filter = ('published',)
-    ordering = ('-pk',)
+    ordering = ('-id',)
     search_fields = ('title', 'subtitle', 'published')
     view_on_site = get_preview_link
     autocomplete_lookup_fields = {
@@ -55,7 +55,7 @@ class PostAdmin(admin.ModelAdmin):
     date_hierarchy = 'published'
     list_display = ('title', 'published')
     list_filter = ('published',)
-    ordering = ('-pk',)
+    ordering = ('-id',)
     search_fields = ('title', 'subtitle', 'published')
     view_on_site = get_preview_link
     formfield_overrides = {
