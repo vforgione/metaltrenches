@@ -1,6 +1,8 @@
 from django.conf import settings
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.db import models
+from django.templatetags.static import StaticNode
+from django.utils.html import strip_tags
 
 from .managers import DraftManager, ScheduledManager, PublishedManager
 
@@ -18,9 +20,27 @@ class Genre(models.Model):
     def __str__(self):
         return self.name
 
-    # @models.permalink
-    # def get_absolute_url(self):
-    #     return 'genre-detail', (self.slug, self.pk)
+    @classmethod
+    def get_published_genres(cls):
+        genres = set()
+        for review in Review.published_objects.all():
+            if isinstance(review.subject, Album):
+                for genre in review.subject.genres.all():
+                        genres.add(genre)
+        for list in List.published_objects.all():
+            for item in list.items.all():
+                if isinstance(item.subject, Album):
+                    for genre in item.subject.genres.all():
+                        genres.add(genre)
+        return genres
+
+    @property
+    def related_albums(self):
+        return self.albums.all().order_by('title')
+
+    @property
+    def related_bands(self):
+        return sorted([album.band for album in self.albums.all()], key=lambda b: b.name)
 
 
 class Band(models.Model):
@@ -46,9 +66,54 @@ class Band(models.Model):
     def __str__(self):
         return self.name
 
-    # @models.permalink
-    # def get_absolute_url(self):
-    #     return 'band-detail', (self.slug, self.pk)
+    @models.permalink
+    def get_absolute_url(self):
+        return 'band-detail', (self.slug, self.pk)
+
+    @classmethod
+    def get_published_bands(cls):
+        bands = set()
+        for review in Review.published_objects.all():
+            if isinstance(review.subject, Band):
+                bands.add(review.subject)
+            elif isinstance(review.subject, Album):
+                bands.add(review.subject.band)
+        for list in List.published_objects.all():
+            for item in list.items.all():
+                if isinstance(item.subject, Band):
+                    bands.add(item.subject)
+                elif isinstance(item.subject, Album):
+                    bands.add(item.subject.band)
+        return bands
+
+    def get_detail_image(self):
+        if self.picture:
+            return self.picture
+        for album in self.albums.all():
+            if album.cover_art:
+                return album.cover_art
+        return ''
+
+    def get_reviews(self):
+        album_pks = [album.pk for album in self.albums.all()]
+        event_pks = [event.pk for event in self.events.all()]
+        reviews = set()
+        for review in Review.published_objects.all():
+            if isinstance(review.subject, Band) and review.subject.pk == self.pk:
+                reviews.add(review)
+            elif isinstance(review.subject, Album) and review.subject.pk in album_pks:
+                reviews.add(review)
+            elif isinstance(review.subject, Event) and review.subject.pk in event_pks:
+                reviews.add(review)
+        for list in List.published_objects.all():
+            for item in list.items.all():
+                if isinstance(item.subject, Band) and item.subject.pk == self.pk:
+                    reviews.add(list)
+                elif isinstance(item.subject, Album) and item.subject.pk in album_pks:
+                    reviews.add(list)
+                elif isinstance(item.subject, Event) and item.subject.pk in event_pks:
+                    reviews.add(list)
+        return reviews
 
 
 class Album(models.Model):
@@ -70,9 +135,32 @@ class Album(models.Model):
     def __str__(self):
         return self.title
 
-    # @models.permalink
-    # def get_absolute_url(self):
-    #     return 'album-detail', (self.slug, self.pk)
+    @models.permalink
+    def get_absolute_url(self):
+        return 'album-detail', (self.slug, self.pk)
+
+    @classmethod
+    def get_published_albums(cls):
+        albums = set()
+        for review in Review.published_objects.all():
+            if isinstance(review.subject, Album):
+                albums.add(review.subject)
+        for list in List.published_objects.all():
+            for item in list.items.all():
+                if isinstance(item.subject, Album):
+                    albums.add(item.subject)
+        return albums
+
+    def get_reviews(self):
+        reviews = set()
+        for review in Review.published_objects.all():
+            if isinstance(review.subject, Album) and review.subject.pk == self.pk:
+                reviews.add(review)
+        for list in List.published_objects.all():
+            for item in list.items.all():
+                if isinstance(item.subject, Album) and item.subject.pk == self.pk:
+                    reviews.add(list)
+        return reviews
 
 
 class Event(models.Model):
@@ -183,6 +271,18 @@ class BaseContent(models.Model):
     def __str__(self):
         return self.title
 
+    def get_detail_image(self):
+        return StaticNode.handle_simple('images/logo-white-480x480.png')
+
+    def get_detail_band(self):
+        return None
+
+    def get_detail_album(self):
+        return None
+
+    def get_short_body(self):
+        return strip_tags(self.body)[:300].replace('&amp;', '&')
+
 
 class Post(BaseContent):
     body = models.TextField(default='', blank=True)
@@ -196,9 +296,9 @@ class Post(BaseContent):
         app_label = 'content'
         ordering = ('-id',)
 
-    # @models.permalink
-    # def get_absolute_url(self):
-    #     return 'post-detail', (self.slug, self.pk)
+    @models.permalink
+    def get_absolute_url(self):
+        return 'post-detail', (self.slug, self.pk)
 
 
 class Review(BaseContent):
@@ -216,9 +316,37 @@ class Review(BaseContent):
         app_label = 'content'
         ordering = ('-id',)
 
-    # @models.permalink
-    # def get_absolute_url(self):
-    #     return 'review-detail', (self.slug, self.pk)
+    @models.permalink
+    def get_absolute_url(self):
+        return 'review-detail', (self.slug, self.pk)
+
+    def get_detail_image(self):
+        if isinstance(self.subject, (Band, Event)):
+            return '{media_url}/{file_path}'.format(media_url=settings.MEDIA_URL, file_path=self.subject.picture)
+        elif isinstance(self.subject, Album):
+            return '{media_url}/{file_path}'.format(media_url=settings.MEDIA_URL, file_path=self.subject.cover_art)
+        else:
+            return None
+
+    def get_detail_band(self):
+        if isinstance(self.subject, Band):
+            return self.subject
+        elif isinstance(self.subject, Album):
+            return self.subject.band
+        elif isinstance(self.subject, Event):
+            return self.subject.bands.first()
+        return super(Review, self).get_detail_band()
+
+    def get_detail_album(self):
+        if isinstance(self.subject, Band):
+            return self.subject.albums.last()
+        elif isinstance(self.subject, Album):
+            return self.subject
+        elif isinstance(self.subject, Event):
+            band = self.subject.bands.first()
+            if band:
+                return band.albums.last()
+        return super(Review, self).get_detail_band()
 
 
 class List(BaseContent):
@@ -234,9 +362,45 @@ class List(BaseContent):
         app_label = 'content'
         ordering = ('-id',)
 
-    # @models.permalink
-    # def get_absolute_url(self):
-    #     return 'list-detail', (self.slug, self.pk)
+    @models.permalink
+    def get_absolute_url(self):
+        return 'review-detail', (self.slug, self.pk)
+
+    def get_detail_image(self):
+        subject = self.items.first()
+        if subject:
+            return subject.get_detail_image()
+        super(List, self).get_detail_image()
+
+    def get_detail_band(self):
+        subject = self.items.first()
+        if subject:
+            if isinstance(subject, Band):
+                return subject
+            elif isinstance(subject, Album):
+                return subject.band
+            elif isinstance(subject, Event):
+                return subject.bands.first()
+        return super(List, self).get_detail_band()
+
+    def get_detail_album(self):
+        subject = self.items.first()
+        if subject:
+            if isinstance(subject, Band):
+                return subject.albums.last()
+            elif isinstance(subject, Album):
+                return subject
+            elif isinstance(subject, Event):
+                band = subject.bands.first()
+                if band:
+                    return band.albums.last()
+        return super(List, self).get_detail_band()
+
+    def get_short_body(self):
+        subject = self.items.first()
+        if subject:
+            return strip_tags(subject.body)[:300].replace('&amp;', '&')
+        return ''
 
 
 class ListItem(models.Model):
@@ -253,8 +417,8 @@ class ListItem(models.Model):
 
     def get_detail_image(self):
         if isinstance(self.subject, (Band, Event)):
-            return self.subject.picture
+            return '{media_url}/{file_path}'.format(media_url=settings.MEDIA_URL, file_path=self.subject.picture)
         elif isinstance(self.subject, Album):
-            return self.subject.cover_art
+            return '{media_url}/{file_path}'.format(media_url=settings.MEDIA_URL, file_path=self.subject.cover_art)
         else:
             return None

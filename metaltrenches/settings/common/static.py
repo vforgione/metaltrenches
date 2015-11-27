@@ -41,6 +41,13 @@ PIPELINE_CSS = {
         ),
         'output_filename': 'css/ratings-chart.css'
     },
+
+    'list_detail': {
+        'source_filenames': (
+            'stylesheets/content/list-detail.css',
+        ),
+        'output_filename': 'css/list-detail.css'
+    }
 }
 
 PIPELINE_JS = {
