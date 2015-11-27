@@ -76,7 +76,7 @@ class PostAdmin(admin.ModelAdmin):
     list_filter = ('published',)
     ordering = ('-id',)
     search_fields = ('title', 'subtitle', 'published')
-    # view_on_site = get_preview_link
+    view_on_site = get_preview_link
     formfield_overrides = {
         models.TextField: {'widget': forms.Textarea(attrs={'class': 'mceEditor', 'rows': '50'})},
     }
@@ -94,7 +94,7 @@ class ReviewAdmin(admin.ModelAdmin):
     list_filter = ('published',)
     ordering = ('-id',)
     search_fields = ('title', 'subtitle', 'published')
-    # view_on_site = get_preview_link
+    view_on_site = get_preview_link
     autocomplete_lookup_fields = {
         'generic': [
             ['content_type', 'object_id'],
@@ -157,7 +157,7 @@ class ListAdmin(admin.ModelAdmin):
     ordering = ('-id',)
     search_fields = ('title', 'subtitle', 'published')
     inlines = (ListItemInlineAdmin,)
-    # view_on_site = get_preview_link
+    view_on_site = get_preview_link
 
 
 admin.site.register(Genre, GenreAdmin)

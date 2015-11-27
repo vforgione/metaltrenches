@@ -2,7 +2,6 @@ from annoying.decorators import render_to
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.http import Http404
 from django.shortcuts import get_object_or_404, render_to_response
 from django.template import RequestContext
 from django.views.decorators.cache import cache_page
@@ -18,36 +17,42 @@ def preview(request, slug, pk):
         co = None
         if content.subject.ratings.count():
             co = content.subject
+        return render_to_response(
+            'content/review-detail.html', {'review': content, 'chart_object': co}, RequestContext(request))
+
     except Review.DoesNotExist:
         try:
             content = Post.objects.get(slug=slug, pk=pk)
+            return render_to_response('content/post-detail.html', {'post': content}, RequestContext(request))
+
         except Post.DoesNotExist:
-            content = get_object_or_404(List.objects.all(), slug=slug, pk=pk)
-
-    if isinstance(content, Review):
-        context = {'review': content, 'chart_object': co}
-        template = 'content/review-detail.html'
-    elif isinstance(content, Post):
-        context = {'post': content}
-        template = 'content/post-detail.html'
-    elif isinstance(content, List):
-        context = {'list': content}
-        template = 'content/list-detail.html'
-    else:
-        raise Http404
-
-    return render_to_response(template, context, RequestContext(request))
+            content = get_object_or_404(List, slug=slug, pk=pk)
+            if content.is_ordered:
+                if content.is_ordered_descending:
+                    items = content.items.all().order_by('-sequence')
+                else:
+                    items = content.items.all().order_by('sequence')
+            else:
+                items = content.items.all()
+            return render_to_response(
+                'content/list-detail.html', {'list': content, 'items': items}, RequestContext(request))
 
 
 @cache_page(settings.CACHE_DURATION)
 @render_to('content/home.html')
 def home(request):
     # pinned content
-    pinned_content = Review.published_objects.all()[:4]
-    excluded_reviews = [content.pk for content in pinned_content] or None
+    _reviews = Review.published_objects.all().order_by('-published')[:4]
+    _posts = []
+    _lists = List.published_objects.all().order_by('-published')[:4]
+    pinned_content = sorted([c for c in _reviews] + [c for c in _posts] + [c for c in _lists], key=lambda c: c.published, reverse=True)
+    excluded_reviews = [content.pk for content in pinned_content if isinstance(content, Review)] or None
+    excluded_posts = None
+    excluded_lists = [content.pk for content in pinned_content if isinstance(content, List)] or None
     exclusion_mapping = {
         Review: excluded_reviews,
-        Post: None,
+        Post: excluded_posts,
+        List: excluded_lists,
     }
 
     # list of content
