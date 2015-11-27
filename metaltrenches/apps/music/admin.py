@@ -11,7 +11,7 @@ class GenreAdmin(admin.ModelAdmin):
 
 
 class BandAdmin(admin.ModelAdmin):
-    ordering = 'name'
+    ordering = ('name',)
     search_fields = ('name',)
 
 

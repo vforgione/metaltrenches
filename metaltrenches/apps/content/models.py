@@ -1,23 +1,141 @@
 from django.conf import settings
-from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.db import models
-from django.templatetags.static import StaticNode
-from django.utils.functional import cached_property
-from django.utils.html import strip_tags
 
-from ..music.models import Band, Album, Event
-from .managers import PublishedManager, ScheduledManager, DraftManager
+from .managers import DraftManager, ScheduledManager, PublishedManager
+
+
+# music stuff
+
+class Genre(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+    slug = models.SlugField(max_length=settings.SLUG_LENGTH, unique=True, blank=True, editable=False)
+
+    class Meta(object):
+        app_label = 'content'
+        ordering = ('name',)
+
+    def __str__(self):
+        return self.name
+
+    # @models.permalink
+    # def get_absolute_url(self):
+    #     return 'genre-detail', (self.slug, self.pk)
+
+
+class Band(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+    slug = models.SlugField(max_length=settings.SLUG_LENGTH, unique=True, blank=True, editable=False)
+    picture = models.ImageField(upload_to='band-pictures', null=True, default=None, blank=True)
+    website = models.URLField(null=True, default=None, blank=True)
+    facebook = models.URLField(null=True, default=None, blank=True)
+    twitter = models.URLField(null=True, default=None, blank=True)
+    bandcamp = models.URLField(null=True, default=None, blank=True)
+    itunes = models.URLField(null=True, default=None, blank=True)
+    playstore = models.URLField(null=True, default=None, blank=True)
+    amazon = models.URLField(null=True, default=None, blank=True)
+
+    reviews = GenericRelation('content.Review')
+    list_items = GenericRelation('content.ListItem')
+    ratings = GenericRelation('content.Rating')
+
+    class Meta(object):
+        app_label = 'content'
+        ordering = ('name',)
+
+    def __str__(self):
+        return self.name
+
+    # @models.permalink
+    # def get_absolute_url(self):
+    #     return 'band-detail', (self.slug, self.pk)
+
+
+class Album(models.Model):
+    title = models.CharField(max_length=200)
+    slug = models.SlugField(max_length=settings.SLUG_LENGTH, unique=True, blank=True, editable=False)
+    band = models.ForeignKey('content.Band', related_name='albums')
+    release_date = models.DateField()
+    cover_art = models.ImageField(upload_to='cover-art', null=True, default=None, blank=True)
+    genres = models.ManyToManyField(Genre, blank=True, related_name='albums')
+
+    reviews = GenericRelation('content.Review')
+    list_items = GenericRelation('content.ListItem')
+    ratings = GenericRelation('content.Rating')
+
+    class Meta(object):
+        app_label = 'content'
+        ordering = ('title',)
+
+    def __str__(self):
+        return self.title
+
+    # @models.permalink
+    # def get_absolute_url(self):
+    #     return 'album-detail', (self.slug, self.pk)
+
+
+class Event(models.Model):
+    name = models.CharField(max_length=255, null=True, default=None, blank=True)
+    slug = models.SlugField(max_length=settings.SLUG_LENGTH, unique=True, blank=True, editable=False)
+    date = models.DateTimeField(null=True, default=None, blank=True)
+    location = models.CharField(max_length=500, null=True, default=None, blank=True)
+    bands = models.ManyToManyField('content.Band', related_name='events')
+    more_info = models.TextField(null=True, default=None, blank=True)
+    picture = models.ImageField(upload_to='event-pictures', null=True, default=None, blank=True)
+
+    reviews = GenericRelation('content.Review')
+    list_items = GenericRelation('content.ListItem')
+    ratings = GenericRelation('content.Rating')
+
+    class Meta(object):
+        app_label = 'content'
+        ordering = ('name',)
+
+    def __str__(self):
+        return self.name
+
+    # @models.permalink
+    # def get_absolute_url(self):
+    #     return 'event-detail', (self.slug, self.pk)
+
+
+# content stuff
+
+class RatingFactor(models.Model):
+    name = models.CharField(max_length=255, unique=True)
+
+    class Meta(object):
+        app_label = 'content'
+        ordering = ('name',)
+
+    def __str__(self):
+        return self.name
+
+
+class Rating(models.Model):
+    factor = models.ForeignKey('content.RatingFactor')
+    score = models.PositiveIntegerField()
+    content_type = models.ForeignKey('contenttypes.ContentType', limit_choices_to={'model__in': ('band', 'album', 'event')})
+    object_id = models.PositiveIntegerField()
+    subject = GenericForeignKey('content_type', 'object_id')
+
+    class Meta(object):
+        app_label = 'content'
+        ordering = ('-id',)
+
+    def __str__(self):
+        return '[{subject}] {factor}:{score}'.format(subject=self.subject, factor=self.factor, score=self.score)
 
 
 class BaseContent(models.Model):
-    class Meta(object):
-        abstract = True
-
     title = models.CharField(max_length=100)
     subtitle = models.CharField(max_length=255, null=True, default=None, blank=True)
-    body = models.TextField(default='', blank=True)
     slug = models.SlugField(max_length=100, unique=True, blank=True, editable=False)
     published = models.DateTimeField(null=True, default=None, blank=True)
+
+    class Meta(object):
+        abstract = True
 
     @classmethod
     def get_children(cls):
@@ -65,23 +183,10 @@ class BaseContent(models.Model):
     def __str__(self):
         return self.title
 
-    def get_detail_image(self):
-        return StaticNode.handle_simple('images/logo-white-480x480.png')
-
-    def get_detail_band(self):
-        return None
-
-    def get_detail_album(self):
-        return None
-
-    def get_detail_event(self):
-        return None
-
-    def get_short_body(self):
-        return strip_tags(self.body)[:300]
-
 
 class Post(BaseContent):
+    body = models.TextField(default='', blank=True)
+
     objects = models.Manager()
     published_objects = PublishedManager()
     scheduled_objects = ScheduledManager()
@@ -89,32 +194,34 @@ class Post(BaseContent):
 
     class Meta(object):
         app_label = 'content'
+        ordering = ('-id',)
 
-    @models.permalink
-    def get_absolute_url(self):
-        return 'post-detail', (self.slug, self.pk)
-
-
-class ReviewItem(models.Model):
-    content_type = models.ForeignKey(
-        'contenttypes.ContentType',
-        null=True,
-        default=None,
-        blank=True,
-        limit_choices_to={'model__in': ('band', 'album', 'event')})
-    object_id = models.PositiveIntegerField(null=True, default=None, blank=True)
-    content_object = GenericForeignKey('content_type', 'object_id')
-    sequence = models.IntegerField(null=True, default=None, blank=True)
-
-    class Meta(object):
-        app_label = 'content'
-
-    def __str__(self):
-        return str(self.content_object)
+    # @models.permalink
+    # def get_absolute_url(self):
+    #     return 'post-detail', (self.slug, self.pk)
 
 
 class Review(BaseContent):
-    subjects = models.ManyToManyField('content.ReviewItem', related_name='reviews')
+    body = models.TextField(default='', blank=True)
+    content_type = models.ForeignKey('contenttypes.ContentType', limit_choices_to={'model__in': ('band', 'album', 'event')})
+    object_id = models.PositiveIntegerField()
+    subject = GenericForeignKey('content_type', 'object_id')
+
+    objects = models.Manager()
+    published_objects = PublishedManager()
+    scheduled_objects = ScheduledManager()
+    draft_objects = DraftManager()
+
+    class Meta(object):
+        app_label = 'content'
+        ordering = ('-id',)
+
+    # @models.permalink
+    # def get_absolute_url(self):
+    #     return 'review-detail', (self.slug, self.pk)
+
+
+class List(BaseContent):
     is_ordered = models.NullBooleanField(default=None, blank=True)
     is_ordered_descending = models.NullBooleanField(default=None, blank=True)
 
@@ -125,86 +232,29 @@ class Review(BaseContent):
 
     class Meta(object):
         app_label = 'content'
+        ordering = ('-id',)
 
-    @models.permalink
-    def get_absolute_url(self):
-        return 'review-detail', (self.slug, self.pk)
+    # @models.permalink
+    # def get_absolute_url(self):
+    #     return 'list-detail', (self.slug, self.pk)
 
-    @cached_property
-    def _get_first_subject(self):
-        self._first_subject = self.subjects.first()
 
-    @cached_property
-    def _get_detail_band_album_event(self):
-        self._get_first_subject
-        self._detail_band = None
-        self._detail_album = None
-        self._detail_event = None
-        if self._first_subject:
-            co = self._first_subject.content_object
-            if isinstance(co, Band):
-                self._detail_band = co
-            elif isinstance(co, Album):
-                self._detail_album = co
-                self._detail_band = co.band
-            elif isinstance(co, Event):
-                self._detail_event = co
+class ListItem(models.Model):
+    list = models.ForeignKey('content.List', related_name='items')
+    body = models.TextField(default='', blank=True)
+    sequence = models.IntegerField(null=True, default=None, blank=True)
+    content_type = models.ForeignKey('contenttypes.ContentType', limit_choices_to={'model__in': ('band', 'album', 'event')})
+    object_id = models.PositiveIntegerField()
+    subject = GenericForeignKey('content_type', 'object_id')
+
+    class Meta(object):
+        app_label = 'content'
+        ordering = ('list', 'sequence')
 
     def get_detail_image(self):
-        self._get_first_subject
-        if not self._first_subject:
-            return super(Review, self).get_detail_image()
-
-        co = self._first_subject.content_object
-        if isinstance(co, (Band, Event)):
-            image = co.picture
-        elif isinstance(co, Album):
-            image = co.cover_art
+        if isinstance(self.subject, (Band, Event)):
+            return self.subject.picture
+        elif isinstance(self.subject, Album):
+            return self.subject.cover_art
         else:
-            image = None
-        if not image:
-            return super(Review, self).get_detail_image()
-
-        return '{}{}'.format(settings.MEDIA_URL, image)
-
-    def get_detail_band(self):
-        self._get_detail_band_album_event
-        return self._detail_band
-
-    def get_detail_album(self):
-        self._get_detail_band_album_event
-        return self._detail_album
-
-    def get_detail_event(self):
-        self._get_detail_band_album_event
-        return self._detail_event
-
-    def get_chart_object(self):
-        if self.subjects.count() == 1:
-            return self.subjects.first()
-        return None
-
-
-class RatingFactor(models.Model):
-    name = models.CharField(max_length=255, unique=True)
-
-    class Meta(object):
-        app_label = 'content'
-
-    def __str__(self):
-        return self.name
-
-
-class Rating(models.Model):
-    item = models.ForeignKey('content.ReviewItem', related_name='ratings')
-    factor = models.ForeignKey('content.RatingFactor')
-    score = models.IntegerField()
-
-    class Meta(object):
-        app_label = 'content'
-        unique_together = (
-            ('item', 'factor'),
-        )
-
-    def __str__(self):
-        return '[{item}] {factor}: {score}'.format(item=self.item, factor=self.factor, score=self.score)
+            return None
