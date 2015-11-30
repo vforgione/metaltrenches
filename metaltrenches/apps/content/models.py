@@ -352,6 +352,7 @@ class Review(BaseContent):
 class List(BaseContent):
     is_ordered = models.NullBooleanField(default=None, blank=True)
     is_ordered_descending = models.NullBooleanField(default=None, blank=True)
+    body = models.TextField(default='', blank=True)
 
     objects = models.Manager()
     published_objects = PublishedManager()

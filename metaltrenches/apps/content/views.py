@@ -43,24 +43,28 @@ def preview(request, slug, pk):
 def home(request):
     # pinned content
     _reviews = Review.published_objects.all().order_by('-published')[:4]
-    _posts = []
     _lists = List.published_objects.all().order_by('-published')[:4]
-    pinned_content = sorted([c for c in _reviews] + [c for c in _posts] + [c for c in _lists], key=lambda c: c.published, reverse=True)
+
+    pinned_content = sorted([c for c in _reviews] + [c for c in _lists], key=lambda c: c.published, reverse=True)
+
     excluded_reviews = [content.pk for content in pinned_content if isinstance(content, Review)] or None
-    excluded_posts = None
     excluded_lists = [content.pk for content in pinned_content if isinstance(content, List)] or None
     exclusion_mapping = {
         Review: excluded_reviews,
-        Post: excluded_posts,
+        Post: Post.published_objects.all().values_list('pk', flat=True),
         List: excluded_lists,
     }
 
     # list of content
     content = BaseContent.get_all_published(limit=15, exclusion_mapping=exclusion_mapping)
 
+    # posts
+    posts = Post.published_objects.all()
+
     return {
         'pinned_content': pinned_content,
         'content': content,
+        'posts': posts,
     }
 
 
