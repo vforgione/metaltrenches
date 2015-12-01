@@ -1,26 +1,12 @@
-{% with num_subjects=review.subjects.count %}
-
-  {% if num_subjects > 1 %}
-    <small>Covering:</small>
-    <br>
-    {% for subject in review.subjects.all %}
-      <h3>{{ subject }}</h3>
-    {% endfor %}
-
-  {% elif num_subjects == 1 %}
-    {% with album=review.get_detail_album band=review.get_detail_band %}
-      {% if album and band %}
-        <h3>
-          <a href="{{ album.get_absolute_url }}"><em>{{ album.title }}</em></a><br>
-          <small>by</small> <a href="{{ band.get_absolute_url }}">{{ band.name }}</a>
-        </h3>
-      {% endif %}
-    {% endwith %}
-
-  {% else %}
-    Dunno what this is about.
-
+{% with album=review.get_detail_album band=review.get_detail_band %}
+  {% if album and band %}
+    <h3>
+      <a href="{{ album.get_absolute_url }}">
+        <em>{{ album.title }}</em>
+      </a>
+      <br>
+      <small>by</small>
+      <a href="{{ band.get_absolute_url }}">{{ band.name }}</a>
+    </h3>
   {% endif %}
-
 {% endwith %}
-

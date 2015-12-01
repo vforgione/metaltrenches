@@ -15,7 +15,6 @@ installed_apps = (
 )
 
 project_apps = (
-    'metaltrenches.apps.music',
     'metaltrenches.apps.content',
     'metaltrenches.apps.social',
 )
