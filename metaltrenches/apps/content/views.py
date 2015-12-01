@@ -59,7 +59,7 @@ def home(request):
     content = BaseContent.get_all_published(limit=15, exclusion_mapping=exclusion_mapping)
 
     # posts
-    posts = Post.published_objects.all()
+    posts = Post.published_objects.all().order_by('-published')[:25]
 
     return {
         'pinned_content': pinned_content,

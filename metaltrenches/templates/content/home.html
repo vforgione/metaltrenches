@@ -29,6 +29,7 @@
     <div class="col-lg-9">
       <div class="row">
         <h1>Reviews</h1>
+        <hr>
       </div>
       {% for item in content %}
         {% include 'content/partials/content/list-row.html' with content=item %}
@@ -40,13 +41,14 @@
 
     <div class="col-lg-1"></div>
 
-    <div class="col-lg-2" style="overflow: hidden">
+    <div class="col-lg-2">
       <div class="row">
         <h1>Posts</h1>
+        <hr>
       </div>
       {% for post in posts %}
           <div class="row">
-            <small>{{ post.published|date }}</small>:
+            <small>{{ post.published|date }}</small><br>
             <a href="{{ post.get_absolute_url }}" class="dont-decorate">
               {{ post.title }}
             </a>

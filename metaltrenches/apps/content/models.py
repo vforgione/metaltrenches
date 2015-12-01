@@ -416,6 +416,9 @@ class ListItem(models.Model):
         app_label = 'content'
         ordering = ('list', 'sequence')
 
+    def __str__(self):
+        return str(self.subject)
+
     def get_detail_image(self):
         if isinstance(self.subject, (Band, Event)):
             return '{media_url}/{file_path}'.format(media_url=settings.MEDIA_URL, file_path=self.subject.picture)
