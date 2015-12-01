@@ -11,6 +11,7 @@ urlpatterns = [
 
     # flat pages
     url(r'^contact/?$', TemplateView.as_view(template_name='base/flat-pages/contact.html'), name='contact'),
+    url(r'^store/?$', TemplateView.as_view(template_name='base/flat-pages/store.html'), name='store'),
 
     # home
     url(r'^$', 'metaltrenches.apps.content.views.home', name='home'),

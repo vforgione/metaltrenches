@@ -1,0 +1,29 @@
+{% extends 'base/contained.html' %}
+{% load static %}
+
+
+{% block title %}Buy Shit{{ block.super }}{% endblock %}
+
+
+{% block content %}
+  <div class="row">
+    <div class="col-lg-6">
+      <img src="{% static 'images/ABCs.png' %}" class="img-responsive img-thumbnail">
+    </div>
+    <div class="col-lg-6">
+      <h1>The ABCs of Black Metal</h1>
+      <h2>Written and Illustrated by FlightOfIcarus</h2>
+      <p>
+        Like black metal? Like history? Put that together in a digestible format and you've got some extreme metal fun
+        for the whole family. Seriously though, don't read this to your kids...
+      </p>
+      <p>
+        Help support the site and grab a copy.
+      </p>
+      <p>
+        You can download it at <a href="https://payhip.com/b/w97f" target="_blank">https://payhip.com/b/w97f</a>.<br>
+        Thanks!
+      </p>
+    </div>
+  </div>
+{% endblock %}
