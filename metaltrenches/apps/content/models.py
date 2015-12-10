@@ -1,3 +1,5 @@
+import re
+
 from django.conf import settings
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.db import models
@@ -281,7 +283,7 @@ class BaseContent(models.Model):
         return None
 
     def get_short_body(self):
-        return strip_tags(self.body)[:300].replace('&amp;', '&')
+        return re.sub(r'&\w+;', r'', strip_tags(self.body))[:300]
 
 
 class Post(BaseContent):
@@ -400,7 +402,7 @@ class List(BaseContent):
     def get_short_body(self):
         subject = self.items.first()
         if subject:
-            return strip_tags(subject.body)[:300].replace('&amp;', '&')
+            return re.sub(r'&\w+;', r'', strip_tags(subject.body))[:300]
         return ''
 
 
