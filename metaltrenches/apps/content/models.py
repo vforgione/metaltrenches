@@ -324,9 +324,9 @@ class Review(BaseContent):
 
     def get_detail_image(self):
         if isinstance(self.subject, (Band, Event)):
-            return '{media_url}/{file_path}'.format(media_url=settings.MEDIA_URL, file_path=self.subject.picture)
+            return '{media_url}{file_path}'.format(media_url=settings.MEDIA_URL, file_path=self.subject.picture)
         elif isinstance(self.subject, Album):
-            return '{media_url}/{file_path}'.format(media_url=settings.MEDIA_URL, file_path=self.subject.cover_art)
+            return '{media_url}{file_path}'.format(media_url=settings.MEDIA_URL, file_path=self.subject.cover_art)
         else:
             return None
 

@@ -1,8 +1,8 @@
-<meta property="og:url" content="http://metaltrenches.com{{ review.get_absolute_url }}">
-<meta property="og:title" content="{{ review.title|safe }}">
+<meta property="og:url" content="https://{{ request.get_host }}{{ review.get_absolute_url }}">
+<meta property="og:title" content="{{ review.title|striptags }}">
 <meta property="og:description" content="{{ review.body|striptags|slice:":255" }}">
 <meta property="og:site_name" content="Metal Trenches">
-<meta property="og:image" content="http://metaltrenches.com{{ MEDIA_URL }}{{ review.album.cover_art }}">
+<meta property="og:image" content="https://{{ request.get_host }}{{ review.get_detail_image }}">
 <meta property="og:app_id" content="950325951684443">
 <meta property="og:type" content=”article”>
 <meta property="og:locale" content="en_US">
