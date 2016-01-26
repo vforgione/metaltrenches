@@ -40,26 +40,12 @@ TEMPLATE_DEBUG = False
 # logging
 
 ADMINS = (
-    ('Vince Forgione', 'v.forgione@gmail.com'),
+    ('Vince Forgione', 'vince.4gione.com'),
 )
 
 MANAGERS = ADMINS
 
 SEND_BROKEN_LINK_EMAILS = True
-
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-
-EMAIL_USE_TLS = True
-
-EMAIL_HOST = 'smtp.gmail.com'
-
-EMAIL_PORT = '587'
-
-EMAIL_HOST_USER = 'v.forgione@gmail.com'
-
-EMAIL_HOST_PASSWORD = '7h3M0n@R(h'
-
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 LOGGING = {
     'version': 1,
