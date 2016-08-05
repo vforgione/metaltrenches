@@ -42,7 +42,7 @@ class Genre(models.Model):
 
     @property
     def related_bands(self):
-        return sorted([album.band for album in self.albums.all()], key=lambda b: b.name)
+        return set(sorted([album.band for album in self.albums.all()], key=lambda b: b.name))
 
 
 class Band(models.Model):
