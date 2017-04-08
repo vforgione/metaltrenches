@@ -1,5 +1,23 @@
+# python stuff
 venv
 __pycache__
 *.py[cod]
+*.so
 
+# generated files
+*.db
+*.sqlite3
+*.log
+.coverage
+
+# installation and distribution artifacts
+dist
+build
+*.egg*
+
+# ide and editor configs
 .idea
+*.swp
+
+# system file explorer bullshit
+.DS_Store
