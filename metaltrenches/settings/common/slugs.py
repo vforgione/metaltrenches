@@ -1,1 +1,0 @@
-SLUG_LENGTH = 50

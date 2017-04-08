@@ -1,9 +1,0 @@
-Django>=1.8,<1.9
-django-annoying
-django-grappelli
-django-pipeline
-ipdb
-ipython
-Pillow
-psycopg2
-pylibmc
