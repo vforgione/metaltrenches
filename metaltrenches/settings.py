@@ -41,6 +41,7 @@ INSTALLED_APPS = [
 
     # project apps
     'ratings',
+    'music',
 ]
 
 
@@ -76,6 +77,12 @@ TEMPLATES = [
 
 # static config
 STATIC_URL = '/static/'
+
+
+# media config
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+MEDIA_URL = '/media/'
 
 
 # db config
