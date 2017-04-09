@@ -15,10 +15,10 @@ class Content(models.Model):
     published: datetime = models.DateTimeField(null=True, default=None, blank=True)
     body: str = models.TextField(default='', blank=True)
 
-    objects = models.Manager()
-    daft_objects = DraftManager()
-    published_objects = PublishedManager()
-    scheduled_objects = ScheduledManager()
+    objects: models.Manager = models.Manager()
+    daft_objects: DraftManager = DraftManager()
+    published_objects: PublishedManager = PublishedManager()
+    scheduled_objects: ScheduledManager = ScheduledManager()
 
     def __str__(self) -> str:
         return self.title

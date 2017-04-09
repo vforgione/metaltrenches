@@ -68,3 +68,11 @@ class EventPicture(models.Model):
 
     def __str__(self) -> str:
         return f'{self.event} {self.pk}'
+
+
+class Person(models.Model):
+    name: str = models.CharField(max_length=100)
+    role: str = models.CharField(max_length=100)
+
+    def __str__(self) -> str:
+        return self.name

@@ -12,10 +12,10 @@ content_choices = {
 
 
 class Post(Content):
-    objects = models.Manager()
-    daft_objects = DraftManager()
-    published_objects = PublishedManager()
-    scheduled_objects = ScheduledManager()
+    objects: models.Manager = models.Manager()
+    daft_objects: DraftManager = DraftManager()
+    published_objects: PublishedManager = PublishedManager()
+    scheduled_objects: ScheduledManager = ScheduledManager()
 
 
 class Review(Content):
@@ -24,20 +24,20 @@ class Review(Content):
     _subject_id: int = models.IntegerField()
     subject: models.Model = GenericForeignKey('_subject_ctype', '_subject_id')
 
-    objects = models.Manager()
-    daft_objects = DraftManager()
-    published_objects = PublishedManager()
-    scheduled_objects = ScheduledManager()
+    objects: models.Manager = models.Manager()
+    daft_objects: DraftManager = DraftManager()
+    published_objects: PublishedManager = PublishedManager()
+    scheduled_objects: ScheduledManager = ScheduledManager()
 
 
 class List(Content):
     is_ordered: bool = models.BooleanField(default=True)
     is_ordered_descending: bool = models.BooleanField(default=True)
 
-    objects = models.Manager()
-    daft_objects = DraftManager()
-    published_objects = PublishedManager()
-    scheduled_objects = ScheduledManager()
+    objects: models.Manager = models.Manager()
+    daft_objects: DraftManager = DraftManager()
+    published_objects: PublishedManager = PublishedManager()
+    scheduled_objects: ScheduledManager = ScheduledManager()
 
 
 class ListItem(models.Model):
@@ -52,3 +52,21 @@ class ListItem(models.Model):
 
     def __str__(self) -> str:
         return f'[{self.list}] {self.sequence} {self.subject}'
+
+
+class Interview(Content):
+    objects: models.Manager = models.Manager()
+    daft_objects: DraftManager = DraftManager()
+    published_objects: PublishedManager = PublishedManager()
+    scheduled_objects: ScheduledManager = ScheduledManager()
+
+
+class InterviewQA(models.Model):
+    interview: Interview = models.ForeignKey('content.Interview', related_name='qas')
+    question: str = models.TextField(default='')
+    answer: str = models.TextField(default='', blank=True)
+    answerer: 'music.Person' = models.ForeignKey('music.Person')
+    sequence: int = models.PositiveIntegerField()
+
+    def __str__(self) -> str:
+        return f'{self.interview} {self.sequence} {self.question}'
